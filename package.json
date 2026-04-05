@@ -1,0 +1,38 @@
+{
+  "name": "adaptive-reels",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Adaptive lesson-reel demo: offline reel pipeline, on-device learning agent, Expo feed app.",
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "pipeline"
+  ],
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "lint": "eslint . && npm run lint -w @reels/mobile",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "pipeline": "tsx pipeline/src/cli.ts",
+    "simulate": "tsx packages/agent/scripts/simulate.ts",
+    "mobile": "npm run start -w @reels/mobile",
+    "analyze": "tsx pipeline/src/analyze-log.ts",
+    "eval": "tsx pipeline/src/cli.ts eval"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.0",
+    "@types/node": "^22.20.5",
+    "eslint": "^9.39.0",
+    "eslint-config-prettier": "^10.1.8",
+    "prettier": "^3.9.9",
+    "tsx": "^4.23.15",
+    "typescript": "~6.0.3",
+    "typescript-eslint": "^8.71.0",
+    "vitest": "^5.0.3"
+  }
+}

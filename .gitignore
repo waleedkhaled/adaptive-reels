@@ -1,0 +1,13 @@
+node_modules/
+coverage/
+dist/
+*.tsbuildinfo
+.DS_Store
+
+# secrets: only .env.example is committed
+.env
+.env.*
+!.env.example
+
+# pipeline output (MP4s, manifest, report, cache, cost ledger)
+library/
