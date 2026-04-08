@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "reel_id": "react-components-props--intro",
+  "concept_id": "react-components-props",
+  "lang": "en",
+  "angle": "intro",
+  "template": "visual-focus",
+  "target_duration_s": 30,
+  "hook": "Why can't a React component just change its own props?",
+  "segments": [
+    {
+      "narration": "Props are the inputs to a component. A parent passes them down, and the child reads them as a single object.",
+      "on_screen_text": "Props flow parent \u2192 child",
+      "visual": {
+        "kind": "code",
+        "language": "tsx",
+        "code": "type Props = { name: string };\n\nfunction Greeting({ name }: Props) {\n  return <h1>Hello {name}</h1>;\n}\n\nconst el = <Greeting name=\"Ada\" />;",
+        "highlight_lines": [1, 3],
+        "check": "compiles"
+      }
+    },
+    {
+      "narration": "Props are read only. To change what is shown over time, a component uses state instead.",
+      "on_screen_text": "Props are read-only",
+      "visual": {
+        "kind": "kinetic_text"
+      }
+    }
+  ],
+  "key_claims": [
+    {
+      "id": "c1",
+      "text": "A component must not modify its own props; it uses state for values that change.",
+      "source_id": "card-react-components-props",
+      "quote": "Props are read-only. A component must never modify its own props; to change what is shown over time it uses state instead."
+    }
+  ],
+  "sources": [
+    {
+      "id": "card-react-components-props",
+      "title": "Source card: Components and props in React",
+      "ref": "content/software-engineering/sources/react-components-props.md"
+    }
+  ],
+  "difficulty": 1,
+  "retrieval_items": [
+    {
+      "id": "react-components-props--intro--q1",
+      "type": "mcq",
+      "prompt": "A child component needs to show a value that changes over time. What should it use?",
+      "choices": ["State", "Modify its props", "A global variable"],
+      "answer_index": 0,
+      "explanation": "Props are read-only, so values that change over time belong in state.",
+      "claim_ids": ["c1"]
+    }
+  ]
+}

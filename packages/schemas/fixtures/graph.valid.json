@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "nodes": [
+    { "id": "optics", "kind": "domain", "title": "Optics", "summary": "How light behaves." },
+    {
+      "id": "refraction",
+      "kind": "topic",
+      "title": "Refraction",
+      "summary": "Light changing direction between media."
+    },
+    {
+      "id": "lenses",
+      "kind": "topic",
+      "title": "Lenses",
+      "summary": "Shaped glass that forms images."
+    },
+    {
+      "id": "refractive-index",
+      "kind": "concept",
+      "title": "Refractive index",
+      "summary": "How much a medium slows light."
+    },
+    {
+      "id": "snells-law",
+      "kind": "concept",
+      "title": "Snell's law",
+      "summary": "The rule for how much light bends."
+    },
+    {
+      "id": "total-internal-reflection",
+      "kind": "concept",
+      "title": "Total internal reflection",
+      "summary": "When light cannot escape a denser medium."
+    },
+    {
+      "id": "converging-lens",
+      "kind": "concept",
+      "title": "Converging lens",
+      "summary": "A lens that brings parallel rays to a focus."
+    }
+  ],
+  "edges": [
+    { "from": "refraction", "to": "optics", "type": "PART_OF" },
+    { "from": "lenses", "to": "optics", "type": "PART_OF" },
+    { "from": "refractive-index", "to": "refraction", "type": "PART_OF" },
+    { "from": "snells-law", "to": "refraction", "type": "PART_OF" },
+    { "from": "total-internal-reflection", "to": "refraction", "type": "PART_OF" },
+    { "from": "converging-lens", "to": "lenses", "type": "PART_OF" },
+    { "from": "refractive-index", "to": "snells-law", "type": "PREREQUISITE_OF" },
+    { "from": "snells-law", "to": "total-internal-reflection", "type": "PREREQUISITE_OF" },
+    { "from": "snells-law", "to": "converging-lens", "type": "PREREQUISITE_OF" },
+    { "from": "total-internal-reflection", "to": "converging-lens", "type": "RELATED_TO" },
+    { "from": "converging-lens", "to": "total-internal-reflection", "type": "RELATED_TO" }
+  ]
+}
