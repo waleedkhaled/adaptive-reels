@@ -1,0 +1,813 @@
+{
+  "schema_version": 1,
+  "nodes": [
+    {
+      "id": "software-engineering",
+      "kind": "domain",
+      "title": "Software engineering in the age of AI",
+      "summary": "Building apps and AI products well."
+    },
+    {
+      "id": "react-native",
+      "kind": "topic",
+      "title": "React Native",
+      "short_title": "React Native",
+      "summary": "Building native mobile apps with React."
+    },
+    {
+      "id": "react-typescript",
+      "kind": "topic",
+      "title": "React and TypeScript",
+      "short_title": "React + TS",
+      "summary": "Components, state and types."
+    },
+    {
+      "id": "problem-solving",
+      "kind": "topic",
+      "title": "Problem solving",
+      "short_title": "Problem solving",
+      "summary": "How engineers find and fix problems."
+    },
+    {
+      "id": "ai-engineering",
+      "kind": "topic",
+      "title": "AI engineering",
+      "short_title": "AI engineering",
+      "summary": "Building reliable products on language models."
+    },
+    {
+      "id": "systems-design",
+      "kind": "topic",
+      "title": "Systems design in the age of AI",
+      "short_title": "Systems design",
+      "summary": "Designing systems that include models."
+    },
+    {
+      "id": "rn-core-components",
+      "kind": "concept",
+      "title": "Core components",
+      "summary": "View, Text and Image render real native views."
+    },
+    {
+      "id": "rn-flexbox-layout",
+      "kind": "concept",
+      "title": "Flexbox layout",
+      "summary": "How React Native lays out screens with Flexbox."
+    },
+    {
+      "id": "rn-lists-virtualization",
+      "kind": "concept",
+      "title": "Lists and virtualization",
+      "summary": "Rendering long lists without rendering every row."
+    },
+    {
+      "id": "rn-navigation",
+      "kind": "concept",
+      "title": "Navigation",
+      "summary": "Moving between screens with stacks and tabs."
+    },
+    {
+      "id": "rn-platform-code",
+      "kind": "concept",
+      "title": "Platform-specific code",
+      "summary": "Handling iOS and Android differences."
+    },
+    {
+      "id": "rn-new-architecture",
+      "kind": "concept",
+      "title": "New Architecture",
+      "summary": "JSI, Fabric and TurboModules."
+    },
+    {
+      "id": "rn-expo-workflow",
+      "kind": "concept",
+      "title": "Expo workflow",
+      "summary": "Expo Go, development builds and config plugins."
+    },
+    {
+      "id": "rn-performance-rerenders",
+      "kind": "concept",
+      "title": "Performance and re-renders",
+      "summary": "Keeping the JS thread and UI smooth."
+    },
+    {
+      "id": "react-components-props",
+      "kind": "concept",
+      "title": "Components and props",
+      "summary": "Functions that take props and return UI."
+    },
+    {
+      "id": "react-state",
+      "kind": "concept",
+      "title": "State",
+      "summary": "Data that changes over time and triggers re-renders."
+    },
+    {
+      "id": "react-effects",
+      "kind": "concept",
+      "title": "Effects",
+      "summary": "Syncing with the outside world, and when not to."
+    },
+    {
+      "id": "react-memoization",
+      "kind": "concept",
+      "title": "Memoization",
+      "summary": "useMemo, useCallback and React.memo."
+    },
+    {
+      "id": "ts-typing-props",
+      "kind": "concept",
+      "title": "Typing props",
+      "summary": "Describing component props with types."
+    },
+    {
+      "id": "ts-unions-narrowing",
+      "kind": "concept",
+      "title": "Unions and narrowing",
+      "summary": "Values that can be one of several types."
+    },
+    {
+      "id": "ts-generics",
+      "kind": "concept",
+      "title": "Generics",
+      "summary": "Types that take type parameters."
+    },
+    {
+      "id": "ts-unknown-vs-any",
+      "kind": "concept",
+      "title": "unknown vs any",
+      "summary": "Safe and unsafe escape hatches."
+    },
+    {
+      "id": "reproduce-before-fixing",
+      "kind": "concept",
+      "title": "Reproduce before fixing",
+      "summary": "Make the bug happen on demand first."
+    },
+    {
+      "id": "break-down-problems",
+      "kind": "concept",
+      "title": "Breaking down problems",
+      "summary": "Split big problems into small checkable steps."
+    },
+    {
+      "id": "read-error-messages",
+      "kind": "concept",
+      "title": "Reading error messages",
+      "summary": "Get the most out of stack traces."
+    },
+    {
+      "id": "binary-search-debugging",
+      "kind": "concept",
+      "title": "Binary-search debugging",
+      "summary": "Halve the search space each step."
+    },
+    {
+      "id": "rubber-duck-debugging",
+      "kind": "concept",
+      "title": "Rubber duck debugging",
+      "summary": "Explaining the problem out loud."
+    },
+    {
+      "id": "time-complexity",
+      "kind": "concept",
+      "title": "Time complexity",
+      "summary": "How work grows with input size."
+    },
+    {
+      "id": "engineering-tradeoffs",
+      "kind": "concept",
+      "title": "Trade-offs",
+      "summary": "Every choice costs something."
+    },
+    {
+      "id": "when-to-ask-for-help",
+      "kind": "concept",
+      "title": "When to ask for help",
+      "summary": "Asking well and at the right time."
+    },
+    {
+      "id": "tokens-context-windows",
+      "kind": "concept",
+      "title": "Tokens and context windows",
+      "summary": "What models read and how much."
+    },
+    {
+      "id": "prompting-basics",
+      "kind": "concept",
+      "title": "Prompting",
+      "summary": "Clear instructions, examples and constraints."
+    },
+    {
+      "id": "structured-output",
+      "kind": "concept",
+      "title": "Structured output",
+      "summary": "Getting JSON you can parse and validate."
+    },
+    {
+      "id": "tool-use-agents",
+      "kind": "concept",
+      "title": "Tool use and agents",
+      "summary": "Letting models call functions in a loop."
+    },
+    {
+      "id": "retrieval-augmented-generation",
+      "kind": "concept",
+      "title": "Retrieval-augmented generation",
+      "summary": "Grounding answers in your own documents."
+    },
+    {
+      "id": "llm-evals",
+      "kind": "concept",
+      "title": "Evals",
+      "summary": "Measuring model behaviour before you ship."
+    },
+    {
+      "id": "hallucinations",
+      "kind": "concept",
+      "title": "Hallucinations",
+      "summary": "Confident answers that are wrong."
+    },
+    {
+      "id": "llm-cost-latency",
+      "kind": "concept",
+      "title": "Cost and latency",
+      "summary": "Tokens, model size and speed trade-offs."
+    },
+    {
+      "id": "caching",
+      "kind": "concept",
+      "title": "Caching",
+      "summary": "Reusing results instead of recomputing them."
+    },
+    {
+      "id": "queues-async-work",
+      "kind": "concept",
+      "title": "Queues and async work",
+      "summary": "Doing slow work outside the request."
+    },
+    {
+      "id": "rate-limiting",
+      "kind": "concept",
+      "title": "Rate limiting",
+      "summary": "Protecting services from too many requests."
+    },
+    {
+      "id": "idempotency",
+      "kind": "concept",
+      "title": "Idempotency",
+      "summary": "Making retries safe."
+    },
+    {
+      "id": "llm-unreliable-dependency",
+      "kind": "concept",
+      "title": "LLM calls as unreliable dependencies",
+      "summary": "Timeouts, retries and validation for model calls."
+    },
+    {
+      "id": "fallbacks-degradation",
+      "kind": "concept",
+      "title": "Fallbacks and graceful degradation",
+      "summary": "What to do when a dependency fails."
+    },
+    {
+      "id": "prompt-injection-guardrails",
+      "kind": "concept",
+      "title": "Prompt injection and guardrails",
+      "summary": "Untrusted text that tries to steer the model."
+    },
+    {
+      "id": "observability",
+      "kind": "concept",
+      "title": "Observability",
+      "summary": "Logs, metrics and traces, including for models."
+    }
+  ],
+  "edges": [
+    {
+      "from": "react-native",
+      "to": "software-engineering",
+      "type": "PART_OF"
+    },
+    {
+      "from": "react-typescript",
+      "to": "software-engineering",
+      "type": "PART_OF"
+    },
+    {
+      "from": "problem-solving",
+      "to": "software-engineering",
+      "type": "PART_OF"
+    },
+    {
+      "from": "ai-engineering",
+      "to": "software-engineering",
+      "type": "PART_OF"
+    },
+    {
+      "from": "systems-design",
+      "to": "software-engineering",
+      "type": "PART_OF"
+    },
+    {
+      "from": "rn-core-components",
+      "to": "react-native",
+      "type": "PART_OF"
+    },
+    {
+      "from": "rn-flexbox-layout",
+      "to": "react-native",
+      "type": "PART_OF"
+    },
+    {
+      "from": "rn-lists-virtualization",
+      "to": "react-native",
+      "type": "PART_OF"
+    },
+    {
+      "from": "rn-navigation",
+      "to": "react-native",
+      "type": "PART_OF"
+    },
+    {
+      "from": "rn-platform-code",
+      "to": "react-native",
+      "type": "PART_OF"
+    },
+    {
+      "from": "rn-new-architecture",
+      "to": "react-native",
+      "type": "PART_OF"
+    },
+    {
+      "from": "rn-expo-workflow",
+      "to": "react-native",
+      "type": "PART_OF"
+    },
+    {
+      "from": "rn-performance-rerenders",
+      "to": "react-native",
+      "type": "PART_OF"
+    },
+    {
+      "from": "react-components-props",
+      "to": "react-typescript",
+      "type": "PART_OF"
+    },
+    {
+      "from": "react-state",
+      "to": "react-typescript",
+      "type": "PART_OF"
+    },
+    {
+      "from": "react-effects",
+      "to": "react-typescript",
+      "type": "PART_OF"
+    },
+    {
+      "from": "react-memoization",
+      "to": "react-typescript",
+      "type": "PART_OF"
+    },
+    {
+      "from": "ts-typing-props",
+      "to": "react-typescript",
+      "type": "PART_OF"
+    },
+    {
+      "from": "ts-unions-narrowing",
+      "to": "react-typescript",
+      "type": "PART_OF"
+    },
+    {
+      "from": "ts-generics",
+      "to": "react-typescript",
+      "type": "PART_OF"
+    },
+    {
+      "from": "ts-unknown-vs-any",
+      "to": "react-typescript",
+      "type": "PART_OF"
+    },
+    {
+      "from": "reproduce-before-fixing",
+      "to": "problem-solving",
+      "type": "PART_OF"
+    },
+    {
+      "from": "break-down-problems",
+      "to": "problem-solving",
+      "type": "PART_OF"
+    },
+    {
+      "from": "read-error-messages",
+      "to": "problem-solving",
+      "type": "PART_OF"
+    },
+    {
+      "from": "binary-search-debugging",
+      "to": "problem-solving",
+      "type": "PART_OF"
+    },
+    {
+      "from": "rubber-duck-debugging",
+      "to": "problem-solving",
+      "type": "PART_OF"
+    },
+    {
+      "from": "time-complexity",
+      "to": "problem-solving",
+      "type": "PART_OF"
+    },
+    {
+      "from": "engineering-tradeoffs",
+      "to": "problem-solving",
+      "type": "PART_OF"
+    },
+    {
+      "from": "when-to-ask-for-help",
+      "to": "problem-solving",
+      "type": "PART_OF"
+    },
+    {
+      "from": "tokens-context-windows",
+      "to": "ai-engineering",
+      "type": "PART_OF"
+    },
+    {
+      "from": "prompting-basics",
+      "to": "ai-engineering",
+      "type": "PART_OF"
+    },
+    {
+      "from": "structured-output",
+      "to": "ai-engineering",
+      "type": "PART_OF"
+    },
+    {
+      "from": "tool-use-agents",
+      "to": "ai-engineering",
+      "type": "PART_OF"
+    },
+    {
+      "from": "retrieval-augmented-generation",
+      "to": "ai-engineering",
+      "type": "PART_OF"
+    },
+    {
+      "from": "llm-evals",
+      "to": "ai-engineering",
+      "type": "PART_OF"
+    },
+    {
+      "from": "hallucinations",
+      "to": "ai-engineering",
+      "type": "PART_OF"
+    },
+    {
+      "from": "llm-cost-latency",
+      "to": "ai-engineering",
+      "type": "PART_OF"
+    },
+    {
+      "from": "caching",
+      "to": "systems-design",
+      "type": "PART_OF"
+    },
+    {
+      "from": "queues-async-work",
+      "to": "systems-design",
+      "type": "PART_OF"
+    },
+    {
+      "from": "rate-limiting",
+      "to": "systems-design",
+      "type": "PART_OF"
+    },
+    {
+      "from": "idempotency",
+      "to": "systems-design",
+      "type": "PART_OF"
+    },
+    {
+      "from": "llm-unreliable-dependency",
+      "to": "systems-design",
+      "type": "PART_OF"
+    },
+    {
+      "from": "fallbacks-degradation",
+      "to": "systems-design",
+      "type": "PART_OF"
+    },
+    {
+      "from": "prompt-injection-guardrails",
+      "to": "systems-design",
+      "type": "PART_OF"
+    },
+    {
+      "from": "observability",
+      "to": "systems-design",
+      "type": "PART_OF"
+    },
+    {
+      "from": "rn-core-components",
+      "to": "rn-flexbox-layout",
+      "type": "PREREQUISITE_OF"
+    },
+    {
+      "from": "rn-core-components",
+      "to": "rn-lists-virtualization",
+      "type": "PREREQUISITE_OF"
+    },
+    {
+      "from": "rn-core-components",
+      "to": "rn-navigation",
+      "type": "PREREQUISITE_OF"
+    },
+    {
+      "from": "rn-core-components",
+      "to": "rn-platform-code",
+      "type": "PREREQUISITE_OF"
+    },
+    {
+      "from": "rn-core-components",
+      "to": "rn-new-architecture",
+      "type": "PREREQUISITE_OF"
+    },
+    {
+      "from": "rn-core-components",
+      "to": "rn-expo-workflow",
+      "type": "PREREQUISITE_OF"
+    },
+    {
+      "from": "rn-lists-virtualization",
+      "to": "rn-performance-rerenders",
+      "type": "PREREQUISITE_OF"
+    },
+    {
+      "from": "react-memoization",
+      "to": "rn-performance-rerenders",
+      "type": "PREREQUISITE_OF"
+    },
+    {
+      "from": "react-components-props",
+      "to": "react-state",
+      "type": "PREREQUISITE_OF"
+    },
+    {
+      "from": "react-state",
+      "to": "react-effects",
+      "type": "PREREQUISITE_OF"
+    },
+    {
+      "from": "react-state",
+      "to": "react-memoization",
+      "type": "PREREQUISITE_OF"
+    },
+    {
+      "from": "react-components-props",
+      "to": "ts-typing-props",
+      "type": "PREREQUISITE_OF"
+    },
+    {
+      "from": "ts-typing-props",
+      "to": "ts-unions-narrowing",
+      "type": "PREREQUISITE_OF"
+    },
+    {
+      "from": "ts-unions-narrowing",
+      "to": "ts-generics",
+      "type": "PREREQUISITE_OF"
+    },
+    {
+      "from": "ts-unions-narrowing",
+      "to": "ts-unknown-vs-any",
+      "type": "PREREQUISITE_OF"
+    },
+    {
+      "from": "reproduce-before-fixing",
+      "to": "read-error-messages",
+      "type": "PREREQUISITE_OF"
+    },
+    {
+      "from": "reproduce-before-fixing",
+      "to": "binary-search-debugging",
+      "type": "PREREQUISITE_OF"
+    },
+    {
+      "from": "break-down-problems",
+      "to": "binary-search-debugging",
+      "type": "PREREQUISITE_OF"
+    },
+    {
+      "from": "reproduce-before-fixing",
+      "to": "rubber-duck-debugging",
+      "type": "PREREQUISITE_OF"
+    },
+    {
+      "from": "break-down-problems",
+      "to": "time-complexity",
+      "type": "PREREQUISITE_OF"
+    },
+    {
+      "from": "break-down-problems",
+      "to": "engineering-tradeoffs",
+      "type": "PREREQUISITE_OF"
+    },
+    {
+      "from": "break-down-problems",
+      "to": "when-to-ask-for-help",
+      "type": "PREREQUISITE_OF"
+    },
+    {
+      "from": "tokens-context-windows",
+      "to": "prompting-basics",
+      "type": "PREREQUISITE_OF"
+    },
+    {
+      "from": "prompting-basics",
+      "to": "structured-output",
+      "type": "PREREQUISITE_OF"
+    },
+    {
+      "from": "structured-output",
+      "to": "tool-use-agents",
+      "type": "PREREQUISITE_OF"
+    },
+    {
+      "from": "tokens-context-windows",
+      "to": "retrieval-augmented-generation",
+      "type": "PREREQUISITE_OF"
+    },
+    {
+      "from": "prompting-basics",
+      "to": "llm-evals",
+      "type": "PREREQUISITE_OF"
+    },
+    {
+      "from": "tokens-context-windows",
+      "to": "hallucinations",
+      "type": "PREREQUISITE_OF"
+    },
+    {
+      "from": "tokens-context-windows",
+      "to": "llm-cost-latency",
+      "type": "PREREQUISITE_OF"
+    },
+    {
+      "from": "hallucinations",
+      "to": "retrieval-augmented-generation",
+      "type": "PREREQUISITE_OF"
+    },
+    {
+      "from": "caching",
+      "to": "queues-async-work",
+      "type": "PREREQUISITE_OF"
+    },
+    {
+      "from": "queues-async-work",
+      "to": "idempotency",
+      "type": "PREREQUISITE_OF"
+    },
+    {
+      "from": "caching",
+      "to": "rate-limiting",
+      "type": "PREREQUISITE_OF"
+    },
+    {
+      "from": "structured-output",
+      "to": "llm-unreliable-dependency",
+      "type": "PREREQUISITE_OF"
+    },
+    {
+      "from": "idempotency",
+      "to": "llm-unreliable-dependency",
+      "type": "PREREQUISITE_OF"
+    },
+    {
+      "from": "llm-unreliable-dependency",
+      "to": "fallbacks-degradation",
+      "type": "PREREQUISITE_OF"
+    },
+    {
+      "from": "tool-use-agents",
+      "to": "prompt-injection-guardrails",
+      "type": "PREREQUISITE_OF"
+    },
+    {
+      "from": "caching",
+      "to": "observability",
+      "type": "PREREQUISITE_OF"
+    },
+    {
+      "from": "structured-output",
+      "to": "ts-unknown-vs-any",
+      "type": "RELATED_TO"
+    },
+    {
+      "from": "ts-unknown-vs-any",
+      "to": "structured-output",
+      "type": "RELATED_TO"
+    },
+    {
+      "from": "llm-evals",
+      "to": "reproduce-before-fixing",
+      "type": "RELATED_TO"
+    },
+    {
+      "from": "reproduce-before-fixing",
+      "to": "llm-evals",
+      "type": "RELATED_TO"
+    },
+    {
+      "from": "binary-search-debugging",
+      "to": "time-complexity",
+      "type": "RELATED_TO"
+    },
+    {
+      "from": "time-complexity",
+      "to": "binary-search-debugging",
+      "type": "RELATED_TO"
+    },
+    {
+      "from": "rn-performance-rerenders",
+      "to": "time-complexity",
+      "type": "RELATED_TO"
+    },
+    {
+      "from": "time-complexity",
+      "to": "rn-performance-rerenders",
+      "type": "RELATED_TO"
+    },
+    {
+      "from": "llm-cost-latency",
+      "to": "caching",
+      "type": "RELATED_TO"
+    },
+    {
+      "from": "caching",
+      "to": "llm-cost-latency",
+      "type": "RELATED_TO"
+    },
+    {
+      "from": "hallucinations",
+      "to": "llm-evals",
+      "type": "RELATED_TO"
+    },
+    {
+      "from": "llm-evals",
+      "to": "hallucinations",
+      "type": "RELATED_TO"
+    },
+    {
+      "from": "react-effects",
+      "to": "rn-performance-rerenders",
+      "type": "RELATED_TO"
+    },
+    {
+      "from": "rn-performance-rerenders",
+      "to": "react-effects",
+      "type": "RELATED_TO"
+    },
+    {
+      "from": "observability",
+      "to": "read-error-messages",
+      "type": "RELATED_TO"
+    },
+    {
+      "from": "read-error-messages",
+      "to": "observability",
+      "type": "RELATED_TO"
+    },
+    {
+      "from": "rate-limiting",
+      "to": "llm-cost-latency",
+      "type": "RELATED_TO"
+    },
+    {
+      "from": "llm-cost-latency",
+      "to": "rate-limiting",
+      "type": "RELATED_TO"
+    },
+    {
+      "from": "ts-unions-narrowing",
+      "to": "structured-output",
+      "type": "RELATED_TO"
+    },
+    {
+      "from": "structured-output",
+      "to": "ts-unions-narrowing",
+      "type": "RELATED_TO"
+    },
+    {
+      "from": "react-components-props",
+      "to": "rn-core-components",
+      "type": "RELATED_TO"
+    },
+    {
+      "from": "rn-core-components",
+      "to": "react-components-props",
+      "type": "RELATED_TO"
+    }
+  ]
+}
