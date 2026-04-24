@@ -1,0 +1,375 @@
+<title>Adaptive Reels Design Preview</title>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;700&family=JetBrains+Mono:wght@500;600;800&display=swap"
+/>
+<style>
+  /* Layout: a short brief, then three true-size phone screens, then the token reference. One dark look by choice: the app is dark-only. */
+  :root {
+    color-scheme: dark;
+    --base: #181612;
+    --raised: #22211c;
+    --overlay: #2f2c28;
+    --hair: #413f39;
+    --control: #88857e;
+    --primary: #f2f0ea;
+    --secondary: #b3b0a9;
+    --inverse: #181612;
+    --proven-dim: #2ba7bf;
+    --proven: #65d5ec;
+    --proven-bright: #b4eaf6;
+    --proven-surface: #0c3037;
+    --due: #eab44a;
+    --error: #ef8377;
+    --syn-lit: #b0d9b7;
+    --syn-name: #c1b3db;
+    --page: #0f0e0b;
+    --display: 'Barlow Semi Condensed', 'Arial Narrow', sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+    --sys: -apple-system, 'SF Pro Text', Roboto, 'Segoe UI', sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { background: var(--page); color: var(--primary); font: 15px/1.5 var(--sys); }
+  .wrap { max-width: 1280px; margin: 0 auto; padding-inline: 16px; padding-block: 28px 56px; display: flex; flex-direction: column; gap: 36px; }
+  h1 { font: 700 34px/1.1 var(--display); margin: 0; text-wrap: balance; }
+  h2 { font: 600 22px/1.2 var(--display); margin: 0 0 12px; }
+  p { margin: 0; max-width: 68ch; color: var(--secondary); }
+  p b, li b { color: var(--primary); font-weight: 600; }
+  .lede { display: flex; flex-direction: column; gap: 10px; }
+  .rules { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 0; border-top: 1px solid var(--hair); }
+  .rules div { padding: 12px 16px 12px 0; border-bottom: 1px solid var(--hair); color: var(--secondary); font-size: 14px; }
+  .rules b { display: block; color: var(--primary); font: 600 16px/1.3 var(--display); }
+
+  .phones { display: flex; flex-wrap: wrap; gap: 28px 24px; }
+  .col { display: flex; flex-direction: column; gap: 8px; width: min(390px, 100%); }
+  .col > span { font: 600 15px var(--display); color: var(--secondary); }
+  .phone { width: 100%; height: 844px; background: var(--base); border: 1px solid var(--hair); border-radius: 36px; overflow: hidden; display: flex; flex-direction: column; }
+  .status { height: 47px; flex: none; display: flex; align-items: flex-end; justify-content: space-between; padding: 0 28px 8px; font: 600 14px var(--sys); }
+  .home { height: 34px; flex: none; display: grid; place-items: center; }
+  .home i { width: 134px; height: 5px; border-radius: 3px; background: var(--primary); opacity: 0.9; }
+
+  /* state tiles: shape is the code, colour reinforces */
+  .t { --s: 22px; width: var(--s); height: var(--s); border-radius: 4px; position: relative; flex: none; display: inline-grid; place-items: center; overflow: hidden; }
+  .t.s18 { --s: 18px; border-radius: 3px; } .t.s28 { --s: 28px; border-radius: 5px; }
+  .t.locked::after { content: ''; width: 45%; height: 2px; background: var(--control); }
+  .t.open, .t.seen { border: 1.5px solid var(--secondary); }
+  .t.seen::after { content: ''; width: 27%; height: 27%; border-radius: 50%; background: var(--secondary); }
+  .t.checked { border: 1.5px solid var(--proven-dim); background: linear-gradient(to top, var(--proven-dim) 50%, transparent 50%); }
+  .t.learned { background: var(--proven); }
+  .t.retained { background: var(--proven-bright); }
+  .t.retained::after { content: ''; width: 34%; height: 58%; border: solid var(--inverse); border-width: 0 2px 2px 0; transform: rotate(40deg) translate(-1px, -1px); }
+  .t.new { border: 2.5px solid var(--primary); }
+  .t.due::before { content: ''; position: absolute; top: 0; right: 0; width: 50%; height: 50%; background: var(--due); clip-path: polygon(0 0, 100% 0, 100% 100%); box-shadow: 0 0 0 2.5px var(--surface, var(--base)); }
+  .t.due { --notch: var(--surface, var(--base)); }
+  .t.due > i { position: absolute; top: -2px; right: -2px; width: 72%; height: 2.5px; background: var(--notch); transform-origin: right top; transform: rotate(45deg) translate(22%, 430%); }
+  .ring { outline: 2px solid var(--primary); outline-offset: 2px; }
+  .pin { position: relative; display: inline-grid; }
+  .pin b { position: absolute; left: -5px; top: -5px; width: 14px; height: 14px; border-radius: 50%; background: var(--primary); color: var(--inverse); font: 600 10px/14px var(--mono); text-align: center; box-shadow: 0 0 0 1px var(--overlay); z-index: 1; }
+
+  /* feed */
+  .head { height: 44px; flex: none; display: flex; align-items: center; gap: 10px; padding: 0 16px; }
+  .head .name { font: 600 17px/22px var(--display); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; flex: 1; }
+  .head .name span { color: var(--secondary); }
+  .snd { font: 600 12px var(--sys); color: var(--secondary); display: flex; align-items: center; gap: 5px; flex: none; }
+  svg.ic { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+  .picture { flex: 1; min-height: 0; display: flex; justify-content: center; }
+  .reel { height: 100%; aspect-ratio: 9 / 16; max-width: 100%; display: flex; flex-direction: column; padding: 34px 20px 18px; gap: 18px; }
+  .reel .ost { font: 700 25px/1.12 var(--display); }
+  .code { background: var(--raised); border-top: 1px solid var(--hair); border-bottom: 1px solid var(--hair); margin: 0 -20px; padding: 12px 20px; font: 500 11.5px/1.6 var(--mono); color: var(--primary); white-space: pre; overflow: hidden; font-variant-ligatures: none; }
+  .code .hl { display: block; background: var(--overlay); margin: 0 -20px; padding: 0 20px; }
+  .code .l { color: var(--syn-lit); } .code .n { color: var(--syn-name); } .code .c { color: var(--secondary); } .code .k { font-weight: 600; }
+  .cap { margin-top: auto; font: 600 19px/1.25 var(--display); color: var(--secondary); }
+  .cap b { color: var(--primary); font-weight: 600; }
+  .strip { flex: none; min-height: 60px; border-top: 2px solid var(--hair); position: relative; display: flex; align-items: center; gap: 10px; padding: 9px 16px; font: 400 15px/20px var(--sys); color: var(--secondary); }
+  .strip::before { content: ''; position: absolute; left: 0; top: -2px; height: 2px; width: var(--p, 41%); background: var(--primary); }
+  .strip b { color: var(--primary); font-weight: 600; }
+  .strip .lead { color: var(--primary); font-weight: 600; }
+  .strip .lead.rev { color: var(--due); }
+  .actions { flex: none; height: 64px; display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--hair); }
+  .actions div { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; font: 600 13px/16px var(--sys); }
+  .tabs { flex: none; height: 50px; display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--hair); }
+  .tabs div { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font: 600 12px/14px var(--sys); color: var(--secondary); }
+  .tabs .on { color: var(--primary); box-shadow: inset 0 2px 0 var(--primary); }
+
+  /* card */
+  .card { flex: 1; min-height: 0; padding: 14px 16px 0; display: flex; flex-direction: column; gap: 12px; overflow: hidden; }
+  .q { font: 600 22px/28px var(--display); }
+  .opt { display: flex; gap: 12px; align-items: flex-start; padding: 11px 12px; border: 1px solid var(--hair); background: var(--raised); border-radius: 6px; font: 500 17px/22px var(--sys); }
+  .opt .key { font: 500 15px/22px var(--mono); color: var(--secondary); flex: none; }
+  .opt.right { border: 2px solid var(--proven); background: var(--proven-surface); padding: 10px 11px; }
+  .opt.right .key { color: var(--proven); }
+  .opt small { display: flex; align-items: center; gap: 5px; margin-top: 3px; font: 600 13px/16px var(--sys); color: var(--proven); }
+  .verdict { font: 700 28px/32px var(--display); color: var(--proven); margin-top: 2px; }
+  .expl { font: 400 15px/21px var(--sys); color: var(--primary); max-width: none; }
+  .panel { border: 1px solid var(--control); background: var(--raised); border-radius: 6px; padding: 11px 12px; display: flex; flex-direction: column; gap: 9px; --surface: var(--raised); }
+  .panel .ttl { font: 600 17px/22px var(--display); }
+  .row8 { display: flex; align-items: center; gap: 6px; }
+  .row8 .cnt { margin-left: auto; font: 500 13px var(--mono); color: var(--secondary); }
+  .change { display: flex; align-items: center; gap: 8px; font: 600 13px/16px var(--sys); }
+  .change .to { color: var(--proven-dim); }
+  .panel .cons { font: 500 13px/18px var(--sys); color: var(--secondary); max-width: none; }
+  .act { flex: none; padding: 12px 16px; display: flex; gap: 12px; }
+  .btn { flex: 1; height: 50px; border-radius: 8px; background: var(--primary); color: var(--inverse); font: 600 17px/50px var(--sys); text-align: center; }
+
+  /* map */
+  .mhead { height: 44px; flex: none; display: flex; align-items: center; gap: 8px; padding: 0 16px 0 8px; }
+  .mhead h3 { font: 600 17px/22px var(--display); margin: 0; flex: 1; }
+  .mhead .n { font: 500 13px var(--mono); color: var(--proven); }
+  .mhead .n span { color: var(--secondary); font-family: var(--sys); }
+  .legend { height: 36px; flex: none; padding: 0 16px; display: flex; align-items: center; justify-content: space-between; font: 500 13px/18px var(--sys); color: var(--secondary); border-bottom: 1px solid var(--hair); }
+  .legend b { font-weight: 600; }
+  .mrow { height: 44px; flex: none; display: flex; align-items: center; gap: 6px; padding: 0 16px; }
+  .mrow.on { background: var(--raised); box-shadow: inset 2px 0 0 var(--primary); --surface: var(--raised); }
+  .mrow .lab { width: 96px; flex: none; font: 600 13px/16px var(--display); letter-spacing: 0.13px; }
+  .mrow .tiles { display: flex; gap: 5px; flex: 1; }
+  .mrow .cnt { font: 500 13px var(--mono); color: var(--secondary); width: 28px; text-align: right; flex: none; }
+  .stage { flex: 1; min-height: 0; background: var(--raised); border-top: 1px solid var(--hair); display: flex; flex-direction: column; --surface: var(--raised); overflow: hidden; }
+  .shead { height: 48px; flex: none; display: flex; align-items: center; gap: 10px; padding: 0 12px 0 16px; border-bottom: 1px solid var(--hair); }
+  .shead b { font: 600 17px/22px var(--display); flex: 1; }
+  .shead span { font: 500 13px var(--mono); color: var(--secondary); }
+  .rrow { min-height: 48px; display: flex; align-items: center; gap: 10px; padding: 0 16px; }
+  .rrow.sel { background: var(--overlay); --surface: var(--overlay); }
+  .rrow .ti { flex: 1; min-width: 0; font: 500 15px/20px var(--sys); }
+  .rrow .ti small { display: block; font: 500 13px/18px var(--sys); color: var(--secondary); }
+  .rrow.lock .ti { color: var(--secondary); }
+  .tag { font: 600 11px/14px var(--mono); letter-spacing: 0.66px; text-transform: uppercase; color: var(--secondary); flex: none; }
+  .tag.learned { color: var(--proven); } .tag.new { color: var(--primary); }
+  .elbow { width: 14px; height: 48px; flex: none; border-left: 1.5px solid var(--proven); position: relative; margin-left: 10px; }
+  .elbow::after { content: ''; position: absolute; left: 0; top: 50%; width: 10px; border-top: 1.5px solid var(--proven); }
+  .elbow.last { height: 24px; align-self: flex-start; } .elbow.last::after { top: 100%; }
+  .elbow.unmet, .elbow.unmet::after { border-color: var(--control); border-style: dashed; }
+  .elbow.pass::after { display: none; }
+  .dock { flex: none; background: var(--overlay); border-top: 1px solid var(--hair); padding: 12px 16px 10px; display: flex; flex-direction: column; gap: 10px; --surface: var(--overlay); }
+  .dock .r1 { display: flex; align-items: center; gap: 12px; }
+  .dock .r1 div { flex: 1; min-width: 0; }
+  .dock .r1 b { display: block; font: 600 17px/22px var(--display); }
+  .dock .r1 small { font: 500 13px/18px var(--sys); color: var(--secondary); }
+  .dock .step { font: 500 13px var(--mono); color: var(--secondary); }
+  .dock p { font: 500 13px/18px var(--sys); max-width: none; }
+
+  /* reference */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+  .sw { border: 1px solid var(--hair); border-radius: 6px; overflow: hidden; background: var(--base); }
+  .sw i { display: block; height: 52px; }
+  .sw div { padding: 8px 10px; font-size: 13px; color: var(--secondary); }
+  .sw code, td code { font: 500 12px var(--mono); color: var(--primary); display: block; }
+  .states { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0; border-top: 1px solid var(--hair); }
+  .states div { display: flex; align-items: center; gap: 12px; padding: 12px 8px 12px 0; border-bottom: 1px solid var(--hair); font-size: 14px; color: var(--secondary); }
+  .states b { display: block; color: var(--primary); font: 600 11px var(--mono); letter-spacing: 0.66px; }
+  .type { display: flex; flex-direction: column; gap: 14px; }
+  .type div { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 18px; border-bottom: 1px solid var(--hair); padding-bottom: 12px; }
+  .type small { color: var(--secondary); font: 500 12px var(--mono); width: 210px; flex: none; }
+  .type span { min-width: 0; }
+  ol { margin: 0; padding-left: 22px; max-width: 76ch; color: var(--secondary); display: flex; flex-direction: column; gap: 8px; }
+</style>
+
+<div class="wrap">
+  <header class="lede">
+    <h1>Status Board</h1>
+    <p>
+      The proposed look for the app and the re-rendered reels. One flat warm-graphite ground shared by video and
+      chrome, so the picture has no frame. <b>Colour means evidence:</b> a fresh profile is greyscale, and only your
+      own quiz answers add colour.
+    </p>
+  </header>
+
+  <div class="rules">
+    <div><b>Cyan is proof</b>A correct retrieval answer. Never on buttons or links.</div>
+    <div><b>Amber is due</b>A review is due now. Nothing else is amber.</div>
+    <div><b>Words in sans, measurements in mono</b>Counts, timers, state words and code use the mono face.</div>
+    <div><b>Flat and solid</b>No gradients, glass, shadows or glows. Structure comes from 1 pt rules.</div>
+  </div>
+
+  <section>
+    <h2>Three screens at true size (390 × 844)</h2>
+    <div class="phones">
+      <!-- FEED -->
+      <div class="col">
+        <span>Feed: a lesson reel</span>
+        <div class="phone">
+          <div class="status"><span>9:41</span><span>5G</span></div>
+          <div class="head">
+            <span class="t s18 seen"></span>
+            <div class="name">Core components <span>in React Native</span></div>
+            <div class="snd">
+              <svg class="ic" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4zM17 9l4 6M21 9l-4 6" /></svg>Sound off
+            </div>
+          </div>
+          <div class="picture">
+            <div class="reel">
+              <div class="ost">View, Text, Image<br />are real native views</div>
+              <div class="code"><span class="k">import</span> { View, Text } <span class="k">from</span> <span class="l">'react-native'</span>;
+
+<span class="k">export const</span> <span class="n">Card</span> = () =&gt; (
+  &lt;<span class="n">View</span>&gt;
+<span class="hl">    &lt;<span class="n">Text</span>&gt;Hello&lt;/<span class="n">Text</span>&gt;</span>  &lt;/<span class="n">View</span>&gt;
+);</div>
+              <div class="cap"><b>Text must sit inside a Text</b> component, or the app throws an error.</div>
+            </div>
+          </div>
+          <div class="strip">
+            <svg class="ic" viewBox="0 0 24 24"><path d="M12 4v16M6 14l6 6 6-6" /></svg>
+            <div><span class="lead">Deepen.</span> From a topic you picked: <b>React Native</b>.</div>
+          </div>
+          <div class="actions">
+            <div><svg class="ic" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" /></svg>More like this</div>
+            <div><svg class="ic" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10" /></svg>Too easy</div>
+            <div><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" /><path d="M6.5 6.5l11 11" /></svg>Not for me</div>
+          </div>
+          <div class="tabs">
+            <div class="on"><svg class="ic" viewBox="0 0 24 24"><rect x="6" y="4" width="12" height="16" rx="2" /></svg>Feed</div>
+            <div><svg class="ic" viewBox="0 0 24 24"><path d="M4 6h4v4H4zM10 6h4v4h-4zM16 6h4v4h-4zM4 14h4v4H4zM10 14h4v4h-4z" /></svg>Map</div>
+            <div><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="9" r="4" /><path d="M5 20c1-4 13-4 14 0" /></svg>You</div>
+          </div>
+          <div class="home"><i></i></div>
+        </div>
+      </div>
+
+      <!-- CARD -->
+      <div class="col">
+        <span>Feed: a quiz card, answered correctly</span>
+        <div class="phone">
+          <div class="status"><span>9:42</span><span>5G</span></div>
+          <div class="card">
+            <div class="q">What does a React Native View become on an iPhone?</div>
+            <div class="opt"><span class="key">A</span><div>A div inside a web view</div></div>
+            <div class="opt right">
+              <span class="key">B</span>
+              <div>A native UIView<small><svg class="ic" style="width:15px;height:15px" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10" /></svg>Correct</small></div>
+            </div>
+            <div class="opt"><span class="key">C</span><div>A canvas drawing</div></div>
+            <div class="verdict">Correct.</div>
+            <p class="expl">Core components render real platform views. On iOS a View is a UIView; on Android it is an android.view.View.</p>
+            <div class="panel">
+              <div class="ttl">Core components</div>
+              <div class="row8">
+                <span class="t s18 checked"></span><span class="t s18 locked"></span><span class="t s18 locked"></span><span class="t s18 locked"></span><span class="t s18 locked"></span><span class="t s18 locked"></span><span class="t s18 locked"></span><span class="t s18 locked"></span>
+                <span class="cnt">0/8</span>
+              </div>
+              <div class="change">
+                <span class="t s18 seen"></span>Seen
+                <svg class="ic" style="width:16px;height:16px" viewBox="0 0 24 24"><path d="M4 12h16M14 6l6 6-6 6" /></svg>
+                <span class="t s18 checked"></span><span class="to">Checked</span>
+              </div>
+              <p class="cons">Back in about 1 min. Correct then: Learned.</p>
+            </div>
+          </div>
+          <div class="act"><div class="btn">Continue</div></div>
+          <div class="strip" style="--p: 0%"><div>First check: <b>Core components</b>.</div></div>
+          <div class="home"><i></i></div>
+        </div>
+      </div>
+
+      <!-- MAP -->
+      <div class="col">
+        <span>Knowledge map, after the delayed review</span>
+        <div class="phone">
+          <div class="status"><span>9:44</span><span>5G</span></div>
+          <div class="mhead">
+            <svg class="ic" viewBox="0 0 24 24" style="width:28px;height:28px"><path d="M14 6l-6 6 6 6" /></svg>
+            <h3>Knowledge map</h3>
+            <div class="n">1/40 <span>learned</span></div>
+          </div>
+          <div class="legend"><span>Watched: dot. Correct: half. Again later: full.</span><b>Key</b></div>
+          <div class="mrow on">
+            <div class="lab">React Native</div>
+            <div class="tiles"><span class="t learned ring"></span><span class="t new"></span><span class="t new"></span><span class="t locked"></span><span class="t new"></span><span class="t new"></span><span class="t new"></span><span class="t new"></span></div>
+            <div class="cnt">1/8</div>
+          </div>
+          <div class="mrow">
+            <div class="lab">React + TS</div>
+            <div class="tiles"><span class="t seen"></span><span class="t locked"></span><span class="t locked"></span><span class="t locked"></span><span class="t locked"></span><span class="t locked"></span><span class="t locked"></span><span class="t locked"></span></div>
+            <div class="cnt">0/8</div>
+          </div>
+          <div class="mrow">
+            <div class="lab">Problem solving</div>
+            <div class="tiles"><span class="t open"></span><span class="t locked"></span><span class="t locked"></span><span class="t locked"></span><span class="t open"></span><span class="t locked"></span><span class="t locked"></span><span class="t locked"></span></div>
+            <div class="cnt">0/8</div>
+          </div>
+          <div class="mrow">
+            <div class="lab">AI engineering</div>
+            <div class="tiles"><span class="t seen"></span><span class="t locked"></span><span class="t locked"></span><span class="t locked"></span><span class="t locked"></span><span class="t locked"></span><span class="t locked"></span><span class="t locked"></span></div>
+            <div class="cnt">0/8</div>
+          </div>
+          <div class="mrow">
+            <div class="lab">Systems design</div>
+            <div class="tiles"><span class="t seen"></span><span class="t locked"></span><span class="t locked"></span><span class="t locked"></span><span class="t locked"></span><span class="t locked"></span><span class="t locked"></span><span class="t locked"></span></div>
+            <div class="cnt">0/8</div>
+          </div>
+          <div class="stage">
+            <div class="shead"><b>React Native</b><span>1/8</span>
+              <svg class="ic" viewBox="0 0 24 24"><path d="M14 6l-6 6 6 6" /></svg><svg class="ic" viewBox="0 0 24 24"><path d="M10 6l6 6-6 6" /></svg>
+            </div>
+            <div class="rrow"><span class="t learned"></span><div class="ti">Core components</div><span class="tag learned">Learned</span></div>
+            <div class="rrow sel"><span class="elbow"></span><span class="pin"><b>1</b><span class="t new"></span></span><div class="ti">Flexbox layout</div><span class="tag new">New</span></div>
+            <div class="rrow"><span class="elbow"></span><span class="pin"><b>2</b><span class="t new"></span></span><div class="ti">Lists and virtualization</div><span class="tag new">New</span></div>
+            <div class="rrow lock"><span class="elbow pass"></span><span class="elbow unmet last" style="margin-left:0"></span><span class="t locked"></span><div class="ti">Performance and re-renders<small>+ needs Memoization (React + TS)</small></div><span class="tag">Locked</span></div>
+            <div class="rrow"><span class="elbow"></span><span class="pin"><b>3</b><span class="t new"></span></span><div class="ti">Navigation</div><span class="tag new">New</span></div>
+          </div>
+          <div class="dock">
+            <div class="r1">
+              <span class="pin"><b>1</b><span class="t s28 new"></span></span>
+              <div><b>Flexbox layout</b><small>Just opened</small></div>
+              <span class="step">1/3</span>
+            </div>
+            <p>3 items: a reel, one more, then a question.</p>
+            <div class="btn">Start</div>
+          </div>
+          <div class="home" style="background: var(--overlay)"><i></i></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Mastery states: the shape carries the meaning</h2>
+    <div class="states">
+      <div><span class="t locked"></span><span><b>LOCKED</b>A prerequisite is not learned</span></div>
+      <div><span class="t open"></span><span><b>OPEN</b>Ready to start</span></div>
+      <div><span class="t new"></span><span><b>NEW</b>Just unlocked</span></div>
+      <div><span class="t seen"></span><span><b>SEEN</b>Watched. Not proof.</span></div>
+      <div><span class="t checked"></span><span><b>CHECKED</b>One correct answer</span></div>
+      <div><span class="t learned"></span><span><b>LEARNED</b>Correct again after a delay</span></div>
+      <div><span class="t retained"></span><span><b>RETAINED</b>Still correct at longer gaps</span></div>
+      <div><span class="t learned due"><i></i></span><span><b>DUE</b>Folded amber corner: review now</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Colour tokens</h2>
+    <div class="grid">
+      <div class="sw"><i style="background: var(--base)"></i><div><code>#181612</code>Ground, app and reels</div></div>
+      <div class="sw"><i style="background: var(--raised)"></i><div><code>#22211C</code>Raised: map stage, rows</div></div>
+      <div class="sw"><i style="background: var(--overlay)"></i><div><code>#2F2C28</code>Overlay: dock, panels</div></div>
+      <div class="sw"><i style="background: var(--primary)"></i><div><code>#F2F0EA</code>Text and primary button · 15.9:1</div></div>
+      <div class="sw"><i style="background: var(--secondary)"></i><div><code>#B3B0A9</code>Secondary text · 8.4:1</div></div>
+      <div class="sw"><i style="background: var(--proven-dim)"></i><div><code>#2BA7BF</code>Checked · 6.4:1</div></div>
+      <div class="sw"><i style="background: var(--proven)"></i><div><code>#65D5EC</code>Learned, correct · 10.6:1</div></div>
+      <div class="sw"><i style="background: var(--proven-bright)"></i><div><code>#B4EAF6</code>Retained · 13.8:1</div></div>
+      <div class="sw"><i style="background: var(--due)"></i><div><code>#EAB44A</code>Due now · 9.6:1</div></div>
+      <div class="sw"><i style="background: var(--error)"></i><div><code>#EF8377</code>Wrong answer · 7.0:1</div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Type</h2>
+    <div class="type">
+      <div><small>Barlow Semi Condensed 700 · 28</small><span style="font: 700 28px/32px var(--display)">Correct. Not quite.</span></div>
+      <div><small>Barlow Semi Condensed 600 · 22</small><span style="font: 600 22px/28px var(--display)">Why can't a component change its own props?</span></div>
+      <div><small>System · 17 body</small><span style="font: 400 17px/24px var(--sys)">Props are read-only. To change what is shown over time, use state.</span></div>
+      <div><small>JetBrains Mono 500 · data</small><span style="font: 500 15px/20px var(--mono)">1/40 · 0:42 · 3 of 8</span></div>
+      <div><small>JetBrains Mono 600 · status column</small><span class="tag" style="color: var(--primary)">Locked · Open · Seen · Checked · Learned · Retained · Due</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Decisions that need you</h2>
+    <ol>
+      <li><b>Apple Developer account and test phones.</b> The App Store's Expo Go is expected to drop our SDK version between 6 and 13 October. This blocks starting the app.</li>
+      <li><b>Approve this look for the reels.</b> Warm graphite instead of navy, these two typefaces, and a re-render of all 119 reels (no API cost).</li>
+      <li><b>Feed defaults.</b> Reels start muted with captions, the map is a full-screen page, and the demo runs in Focus mode.</li>
+      <li><b>Quiz rules.</b> Select an answer then tap "Check answer"; the feed is locked on a quiz until you answer or tap "Later".</li>
+      <li><b>720p or 1080p.</b> Decided by a 5-reel test on your phones.</li>
+    </ol>
+  </section>
+</div>
