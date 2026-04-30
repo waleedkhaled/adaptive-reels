@@ -1,0 +1,31 @@
+{
+  "name": "@reels/pipeline",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Offline reel pipeline: generate spec -> review gates -> TTS -> images -> render -> manifest + report.",
+  "type": "module",
+  "scripts": {
+    "start": "tsx src/cli.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@reels/fonts": "*",
+    "@reels/schemas": "*",
+    "@reels/tokens": "*",
+    "@remotion/bundler": "4.0.532",
+    "@remotion/fonts": "4.0.532",
+    "@remotion/renderer": "4.0.532",
+    "katex": "^0.19.0",
+    "prism-react-renderer": "^2.4.1",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "remotion": "4.0.532",
+    "typescript": "~6.0.3",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/katex": "^0.16.8",
+    "@types/react": "~19.2.2",
+    "@types/react-dom": "~19.2.0"
+  }
+}
