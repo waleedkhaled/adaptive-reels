@@ -1,0 +1,19 @@
+{
+  "name": "@reels/agent",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Pure, deterministic learning agent: picks the next reel or card. No React Native, Node, clock or Math.random.",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit && tsc --noEmit -p scripts",
+    "simulate": "tsx scripts/simulate.ts"
+  },
+  "dependencies": {
+    "@reels/schemas": "*"
+  }
+}
