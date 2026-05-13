@@ -1,0 +1,56 @@
+{
+  "expo": {
+    "name": "Adaptive Reels",
+    "slug": "adaptive-reels",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.waleednemrini.adaptivereels",
+      "appleTeamId": "2PKX9H928G",
+      "infoPlist": {
+        "NSLocalNetworkUsageDescription": "Adaptive Reels loads lesson videos from the reel library on your local network.",
+        "NSAppTransportSecurity": {
+          "NSAllowsArbitraryLoads": false,
+          "NSAllowsLocalNetworking": true
+        },
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#181612",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false,
+      "package": "com.waleednemrini.adaptivereels"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-video",
+      "expo-font",
+      "expo-sqlite",
+      "expo-sharing",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#181612",
+          "image": "./assets/splash-icon.png",
+          "imageWidth": 76
+        }
+      ]
+    ],
+    "scheme": "adaptivereels",
+    "backgroundColor": "#181612",
+    "experiments": {
+      "reactCompiler": true
+    }
+  }
+}
