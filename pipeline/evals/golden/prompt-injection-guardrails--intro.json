@@ -1,0 +1,153 @@
+{
+  "reel_id": "prompt-injection-guardrails--intro",
+  "label_source": "Checked on 2026-10-05 against the source card (claims, answer keys, code). Not yet approved in the review report.",
+  "concept": {
+    "id": "prompt-injection-guardrails",
+    "title": "Prompt injection and guardrails",
+    "summary": "Untrusted text that tries to steer the model."
+  },
+  "topic": {
+    "id": "systems-design",
+    "title": "Systems design in the age of AI",
+    "summary": "Designing systems that include models."
+  },
+  "card": {
+    "ref": "content/software-engineering/sources/prompt-injection-guardrails.md",
+    "text": "# Prompt injection and guardrails\n\n1. Prompt injection is when untrusted text, such as a web page, an email, a document or user input, contains instructions that the model then follows.\n2. Indirect prompt injection arrives through content the model reads while working, such as retrieved documents or tool results, not from the user directly.\n3. Prompt injection is ranked first in the OWASP Top 10 for Large Language Model Applications.\n4. There is currently no complete, reliable fix for prompt injection, so systems must limit what an injected instruction can do.\n5. Give the model only the tools and permissions it needs, and require human confirmation for sensitive or destructive actions.\n6. The riskiest setup combines access to private data, exposure to untrusted content, and a way to send data out.\n7. Never execute model output directly, such as running generated code or SQL, without validation and sandboxing."
+  },
+  "spec": {
+    "schema_version": 1,
+    "reel_id": "prompt-injection-guardrails--intro",
+    "concept_id": "prompt-injection-guardrails",
+    "lang": "en",
+    "angle": "intro",
+    "template": "visual-focus",
+    "target_duration_s": 30,
+    "hook": "Your AI agent just read an email that told it to delete your database.",
+    "segments": [
+      {
+        "narration": "That's prompt injection. Untrusted text like emails, web pages, or documents contains instructions the model follows.",
+        "on_screen_text": "Prompt injection: untrusted text steers the model",
+        "visual": {
+          "kind": "kinetic_text"
+        }
+      },
+      {
+        "narration": "Indirect injection is sneakier. It hides in content the model reads while working, like retrieved documents or tool results.",
+        "on_screen_text": "Indirect injection: hidden in content the model reads",
+        "visual": {
+          "kind": "flow",
+          "nodes": [
+            {
+              "id": "user",
+              "label": "User Request"
+            },
+            {
+              "id": "agent",
+              "label": "AI Agent"
+            },
+            {
+              "id": "docs",
+              "label": "Retrieved Docs"
+            },
+            {
+              "id": "act",
+              "label": "Model Acts"
+            }
+          ],
+          "edges": [
+            {
+              "from": "user",
+              "to": "agent"
+            },
+            {
+              "from": "agent",
+              "to": "docs",
+              "label": "reads"
+            },
+            {
+              "from": "docs",
+              "to": "act",
+              "label": "injects"
+            }
+          ]
+        }
+      },
+      {
+        "narration": "There's no complete fix, so limit the blast radius. Give the model only the tools it needs, and require human confirmation for destructive actions.",
+        "on_screen_text": "No complete fix → limit the blast radius",
+        "visual": {
+          "kind": "code",
+          "language": "python",
+          "code": "# Limit what an injection can do\nagent = Agent(\n  tools=[search_web],  # least privilege\n  confirm_before=[\"delete\", \"send_email\",\n                  \"run_sql\"],\n)",
+          "highlight_lines": [3, 4],
+          "check": "none"
+        }
+      }
+    ],
+    "key_claims": [
+      {
+        "id": "c1",
+        "text": "Prompt injection is when untrusted text contains instructions that the model follows.",
+        "source_id": "card-prompt-injection-guardrails",
+        "quote": "Prompt injection is when untrusted text, such as a web page, an email, a document or user input, contains instructions that the model then follows."
+      },
+      {
+        "id": "c2",
+        "text": "Indirect prompt injection arrives through content the model reads while working, not from the user directly.",
+        "source_id": "card-prompt-injection-guardrails",
+        "quote": "Indirect prompt injection arrives through content the model reads while working, such as retrieved documents or tool results, not from the user directly."
+      },
+      {
+        "id": "c3",
+        "text": "There is no complete fix for prompt injection, so systems must limit what an injected instruction can do.",
+        "source_id": "card-prompt-injection-guardrails",
+        "quote": "There is currently no complete, reliable fix for prompt injection, so systems must limit what an injected instruction can do."
+      },
+      {
+        "id": "c4",
+        "text": "Give the model only the tools it needs and require human confirmation for sensitive or destructive actions.",
+        "source_id": "card-prompt-injection-guardrails",
+        "quote": "Give the model only the tools and permissions it needs, and require human confirmation for sensitive or destructive actions."
+      }
+    ],
+    "sources": [
+      {
+        "id": "card-prompt-injection-guardrails",
+        "title": "Source card: Prompt injection and guardrails",
+        "ref": "content/software-engineering/sources/prompt-injection-guardrails.md"
+      }
+    ],
+    "difficulty": 2,
+    "retrieval_items": [
+      {
+        "id": "prompt-injection-guardrails--intro--q1",
+        "type": "mcq",
+        "prompt": "What is indirect prompt injection?",
+        "choices": [
+          "Instructions hidden in content the model reads while working, like docs",
+          "Instructions typed directly by the user in the chat",
+          "A bug in the model's training data",
+          "A type of SQL injection attack"
+        ],
+        "answer_index": 0,
+        "explanation": "Indirect prompt injection arrives through content the model reads while working, such as retrieved documents or tool results, not from the user directly.",
+        "claim_ids": ["c2"]
+      },
+      {
+        "id": "prompt-injection-guardrails--intro--q2",
+        "type": "mcq",
+        "prompt": "Since there is no complete fix for prompt injection, what should systems do?",
+        "choices": [
+          "Use a larger model that can detect injections automatically",
+          "Give the model only necessary tools and require human confirmation for actions",
+          "Never use LLMs with any untrusted content at all",
+          "Encrypt all prompts before sending them to the model"
+        ],
+        "answer_index": 1,
+        "explanation": "With no complete fix available, systems must limit what an injected instruction can do by giving the model only necessary tools and requiring human confirmation for sensitive or destructive actions.",
+        "claim_ids": ["c3", "c4"]
+      }
+    ]
+  }
+}

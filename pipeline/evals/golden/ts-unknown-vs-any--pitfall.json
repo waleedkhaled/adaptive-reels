@@ -1,0 +1,148 @@
+{
+  "reel_id": "ts-unknown-vs-any--pitfall",
+  "label_source": "Checked on 2026-10-05 against the source card (claims, answer keys, code). Not yet approved in the review report.",
+  "concept": {
+    "id": "ts-unknown-vs-any",
+    "title": "unknown vs any",
+    "summary": "Safe and unsafe escape hatches."
+  },
+  "topic": {
+    "id": "react-typescript",
+    "title": "React and TypeScript",
+    "summary": "Components, state and types."
+  },
+  "card": {
+    "ref": "content/software-engineering/sources/ts-unknown-vs-any.md",
+    "text": "# unknown vs any\n\n1. any turns off type checking for a value: you can call any method or read any property, and errors only show up at runtime.\n2. unknown means the type is not known yet: TypeScript lets you store and pass the value, but not use it until you narrow it.\n3. Narrowing an unknown value, for example with typeof value === 'string', makes it safe to use in that branch.\n4. any spreads: a value derived from an any value is also any, so one any can silently remove checking from much of a codebase.\n5. JSON.parse returns any, so parsed data looks typed but is not checked.\n6. Data from outside your program, such as API responses, should be treated as unknown and validated at runtime, for example with a schema library such as Zod.\n7. In strict mode, the error variable in a catch clause has type unknown, so you must check it before using properties like message.\n8. The noImplicitAny compiler option reports places where TypeScript would otherwise silently infer any."
+  },
+  "spec": {
+    "schema_version": 1,
+    "reel_id": "ts-unknown-vs-any--pitfall",
+    "concept_id": "ts-unknown-vs-any",
+    "lang": "en",
+    "angle": "pitfall",
+    "template": "visual-focus",
+    "target_duration_s": 30,
+    "hook": "JSON parse returns any, and that any silently spreads.",
+    "segments": [
+      {
+        "narration": "Parsed data looks typed, but it's not checked. You can read any property, and errors only show up at runtime.",
+        "on_screen_text": "JSON.parse() → any: looks typed, isn't",
+        "visual": {
+          "kind": "code",
+          "language": "ts",
+          "code": "declare function sendEmail(\n  addr: string,\n): void;\nconst text = \"{}\";\nconst data = JSON.parse(text);\nsendEmail(data.user.email);",
+          "highlight_lines": [5, 6],
+          "check": "compiles",
+          "shows_mistake": true
+        }
+      },
+      {
+        "narration": "Worse, any spreads. A value derived from an any is also any, so one any can silently remove checking from much of your codebase.",
+        "on_screen_text": "any spreads silently through your code",
+        "visual": {
+          "kind": "flow",
+          "nodes": [
+            {
+              "id": "json-parse",
+              "label": "JSON.parse"
+            },
+            {
+              "id": "any-value",
+              "label": "any value"
+            },
+            {
+              "id": "derived",
+              "label": "derived: also any"
+            },
+            {
+              "id": "more-code",
+              "label": "more code: any"
+            }
+          ],
+          "edges": [
+            {
+              "from": "json-parse",
+              "to": "any-value"
+            },
+            {
+              "from": "any-value",
+              "to": "derived",
+              "label": "spreads"
+            },
+            {
+              "from": "derived",
+              "to": "more-code",
+              "label": "spreads"
+            }
+          ]
+        }
+      },
+      {
+        "narration": "Instead, treat external data as unknown and validate it at runtime, with a type of check or a schema library like Zod, before using it.",
+        "on_screen_text": "Treat external data as unknown, then validate",
+        "visual": {
+          "kind": "code",
+          "language": "ts",
+          "code": "const text = '\"hello\"';\nconst raw: unknown = JSON.parse(text);\nif (typeof raw === \"string\") {\n  console.log(raw.toUpperCase());\n}",
+          "highlight_lines": [2, 3],
+          "check": "compiles",
+          "shows_mistake": false
+        }
+      }
+    ],
+    "key_claims": [
+      {
+        "id": "c1",
+        "text": "JSON.parse returns any, so parsed data looks typed but is not actually checked.",
+        "source_id": "card-ts-unknown-vs-any",
+        "quote": "JSON.parse returns any, so parsed data looks typed but is not checked."
+      },
+      {
+        "id": "c2",
+        "text": "any spreads: a value derived from an any is also any, so one any can silently remove checking from much of a codebase.",
+        "source_id": "card-ts-unknown-vs-any",
+        "quote": "any spreads: a value derived from an any value is also any, so one any can silently remove checking from much of a codebase."
+      },
+      {
+        "id": "c3",
+        "text": "Treat external data as unknown and validate it at runtime, for example with a schema library like Zod.",
+        "source_id": "card-ts-unknown-vs-any",
+        "quote": "Data from outside your program, such as API responses, should be treated as unknown and validated at runtime, for example with a schema library such as Zod."
+      }
+    ],
+    "sources": [
+      {
+        "id": "card-ts-unknown-vs-any",
+        "title": "Source card: unknown vs any",
+        "ref": "content/software-engineering/sources/ts-unknown-vs-any.md"
+      }
+    ],
+    "difficulty": 2,
+    "retrieval_items": [
+      {
+        "id": "ts-unknown-vs-any--pitfall--q1",
+        "type": "mcq",
+        "prompt": "What type does JSON.parse return, making parsed data look typed but unchecked?",
+        "choices": ["any", "unknown", "string", "never"],
+        "answer_index": 0,
+        "explanation": "JSON.parse returns any, so parsed data looks typed but is not actually checked.",
+        "claim_ids": ["c1"]
+      },
+      {
+        "id": "ts-unknown-vs-any--pitfall--q2",
+        "type": "mcq",
+        "prompt": "Why is a single any especially dangerous across a codebase?",
+        "choices": [
+          "any spreads — derived values are also any",
+          "any throws immediately at compile time",
+          "any is only allowed in non-strict mode",
+          "any values cannot be assigned to anything"
+        ],
+        "answer_index": 0,
+        "explanation": "any spreads: a value derived from an any is also any, so one any can silently remove checking from much of a codebase.",
+        "claim_ids": ["c2"]
+      }
+    ]
+  }
+}

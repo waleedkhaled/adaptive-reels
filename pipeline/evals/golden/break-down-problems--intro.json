@@ -1,0 +1,113 @@
+{
+  "reel_id": "break-down-problems--intro",
+  "label_source": "Checked on 2026-10-05 against the source card (claims, answer keys, code). Not yet approved in the review report.",
+  "concept": {
+    "id": "break-down-problems",
+    "title": "Breaking down problems",
+    "summary": "Split big problems into small checkable steps."
+  },
+  "topic": {
+    "id": "problem-solving",
+    "title": "Problem solving",
+    "summary": "How engineers find and fix problems."
+  },
+  "card": {
+    "ref": "content/software-engineering/sources/break-down-problems.md",
+    "text": "# Breaking down problems\n\n1. Breaking a problem down means splitting it into small steps that can each be built and checked on their own.\n2. A good step has a clear way to verify it is done, such as a test that passes or an output you can inspect.\n3. Building the smallest end-to-end version first, even if every part is crude, exposes integration problems early.\n4. Writing the steps down frees working memory and makes it obvious what to do next.\n5. Listing what you do not know yet turns vague worries into specific questions you can investigate.\n6. A short throwaway experiment, often called a spike, answers a risky question before you commit to a design.\n7. Estimates for small, concrete steps tend to be more reliable than a single estimate for the whole job."
+  },
+  "spec": {
+    "schema_version": 1,
+    "reel_id": "break-down-problems--intro",
+    "concept_id": "break-down-problems",
+    "lang": "en",
+    "angle": "intro",
+    "template": "visual-focus",
+    "target_duration_s": 30,
+    "hook": "You open a ticket that says build payments and freeze. Where do you even start?",
+    "segments": [
+      {
+        "narration": "The trick is to break the problem down. Split it into small steps you can build and check on their own.",
+        "on_screen_text": "Small steps, each checkable",
+        "visual": {
+          "kind": "kinetic_text"
+        }
+      },
+      {
+        "narration": "Each step needs a clear way to verify it's done, like a test that passes or output you can inspect.",
+        "on_screen_text": "Each step needs a check",
+        "visual": {
+          "kind": "code",
+          "language": "ts",
+          "code": "function price(n: number): string {\n  return `$${n.toFixed(2)}`;\n}\n// verify step 1:\nconst ok = price(10) === \"$10.00\";",
+          "highlight_lines": [4, 5],
+          "check": "compiles"
+        }
+      },
+      {
+        "narration": "Write the steps down. It frees your working memory and makes it obvious what to do next.",
+        "on_screen_text": "Write it down, know what's next",
+        "visual": {
+          "kind": "kinetic_text"
+        }
+      }
+    ],
+    "key_claims": [
+      {
+        "id": "c1",
+        "text": "Breaking a problem down means splitting it into small steps that can each be built and checked independently.",
+        "source_id": "card-break-down-problems",
+        "quote": "Breaking a problem down means splitting it into small steps that can each be built and checked on their own."
+      },
+      {
+        "id": "c2",
+        "text": "A good step has a clear way to verify it is done, such as a passing test or inspectable output.",
+        "source_id": "card-break-down-problems",
+        "quote": "A good step has a clear way to verify it is done, such as a test that passes or an output you can inspect."
+      },
+      {
+        "id": "c3",
+        "text": "Writing the steps down frees working memory and makes the next action obvious.",
+        "source_id": "card-break-down-problems",
+        "quote": "Writing the steps down frees working memory and makes it obvious what to do next."
+      }
+    ],
+    "sources": [
+      {
+        "id": "card-break-down-problems",
+        "title": "Source card: Breaking down problems",
+        "ref": "content/software-engineering/sources/break-down-problems.md"
+      }
+    ],
+    "difficulty": 1,
+    "retrieval_items": [
+      {
+        "id": "break-down-problems--intro--q1",
+        "type": "mcq",
+        "prompt": "What makes a step 'good' when breaking down a problem?",
+        "choices": [
+          "It has a clear way to verify it is done",
+          "It is the largest chunk you can manage",
+          "It covers multiple features at once",
+          "It has no dependencies on other steps"
+        ],
+        "answer_index": 0,
+        "explanation": "A good step has a clear way to verify it is done, such as a test that passes or an output you can inspect.",
+        "claim_ids": ["c2"]
+      },
+      {
+        "id": "break-down-problems--intro--q2",
+        "type": "mcq",
+        "prompt": "Why should you write the steps down?",
+        "choices": [
+          "To share them with your team immediately",
+          "It frees working memory and shows what to do next",
+          "To create a permanent project document",
+          "So you can estimate the whole job at once"
+        ],
+        "answer_index": 1,
+        "explanation": "Writing the steps down frees working memory and makes it obvious what to do next.",
+        "claim_ids": ["c3"]
+      }
+    ]
+  }
+}

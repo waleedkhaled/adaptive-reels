@@ -1,0 +1,147 @@
+{
+  "reel_id": "prompting-basics--example",
+  "label_source": "Checked on 2026-10-05 against the source card (claims, answer keys, code). Not yet approved in the review report.",
+  "concept": {
+    "id": "prompting-basics",
+    "title": "Prompting",
+    "summary": "Clear instructions, examples and constraints."
+  },
+  "topic": {
+    "id": "ai-engineering",
+    "title": "AI engineering",
+    "summary": "Building reliable products on language models."
+  },
+  "card": {
+    "ref": "content/software-engineering/sources/prompting-basics.md",
+    "text": "# Prompting\n\n1. A prompt works better when it states the task, the audience, the constraints and the output format explicitly.\n2. Examples of good input and output pairs in the prompt, called few-shot examples, show the model what you want more reliably than descriptions alone.\n3. The system prompt sets rules and context that apply to the whole conversation.\n4. Separating instructions from the data they apply to, for example with clear delimiters or tags, helps the model tell them apart.\n5. For complex tasks, asking the model to reason step by step before giving its answer can improve accuracy.\n6. A lower temperature makes outputs more focused and repeatable, but even at temperature 0 outputs are not guaranteed to be identical every time.\n7. Improving a prompt works best with a set of test inputs, so you can see whether a change helps or hurts."
+  },
+  "spec": {
+    "schema_version": 1,
+    "reel_id": "prompting-basics--example",
+    "concept_id": "prompting-basics",
+    "lang": "en",
+    "angle": "example",
+    "template": "visual-focus",
+    "target_duration_s": 30,
+    "hook": "Your LLM outputs keep drifting? Structure your prompt like this.",
+    "segments": [
+      {
+        "narration": "Here's a prompt for a ticket classifier. It states the task, audience, allowed labels, and output format. Tags separate instructions from the user input.",
+        "on_screen_text": "Task, audience, constraints, format + delimiters",
+        "visual": {
+          "kind": "code",
+          "language": "ts",
+          "code": "const input = \"App crashes on login\";\nexport const prompt = `\nClassify the support ticket.\nAudience: internal triage.\nOutput: bug, feature, billing.\nOnly return the label.\n<ticket>${input}</ticket>\n`;",
+          "highlight_lines": [3, 4, 5, 6, 7],
+          "check": "compiles"
+        }
+      },
+      {
+        "narration": "Now add a few-shot example showing the exact input and output you expect. This shows the pattern more reliably than a description alone.",
+        "on_screen_text": "Few-shot examples > descriptions alone",
+        "visual": {
+          "kind": "code",
+          "language": "ts",
+          "code": "const input = \"App crashes on login\";\nexport const prompt = `\nClassify the support ticket.\nOutput: bug, feature, billing.\nOnly return the label.\n\nExample: \"Can't log in\" → bug\nExample: \"Add dark mode\" → feature\n\n<ticket>${input}</ticket>\n`;",
+          "highlight_lines": [7, 8],
+          "check": "compiles"
+        }
+      },
+      {
+        "narration": "Test with a set of inputs so you can see whether each prompt change helps or hurts.",
+        "on_screen_text": "Test inputs → compare → iterate",
+        "visual": {
+          "kind": "flow",
+          "nodes": [
+            {
+              "id": "inputs",
+              "label": "Test input set"
+            },
+            {
+              "id": "run",
+              "label": "Run all inputs"
+            },
+            {
+              "id": "compare",
+              "label": "Helps or hurts?"
+            }
+          ],
+          "edges": [
+            {
+              "from": "inputs",
+              "to": "run"
+            },
+            {
+              "from": "run",
+              "to": "compare"
+            }
+          ]
+        }
+      }
+    ],
+    "key_claims": [
+      {
+        "id": "c1",
+        "text": "A prompt works better when it explicitly states the task, audience, constraints, and output format.",
+        "source_id": "card-prompting-basics",
+        "quote": "A prompt works better when it states the task, the audience, the constraints and the output format explicitly."
+      },
+      {
+        "id": "c2",
+        "text": "Few-shot examples of input and output pairs show the model what you want more reliably than descriptions alone.",
+        "source_id": "card-prompting-basics",
+        "quote": "Examples of good input and output pairs in the prompt, called few-shot examples, show the model what you want more reliably than descriptions alone."
+      },
+      {
+        "id": "c3",
+        "text": "Separating instructions from data with delimiters or tags helps the model tell them apart.",
+        "source_id": "card-prompting-basics",
+        "quote": "Separating instructions from the data they apply to, for example with clear delimiters or tags, helps the model tell them apart."
+      },
+      {
+        "id": "c4",
+        "text": "Improving a prompt works best with a set of test inputs so you can see whether a change helps or hurts.",
+        "source_id": "card-prompting-basics",
+        "quote": "Improving a prompt works best with a set of test inputs, so you can see whether a change helps or hurts."
+      }
+    ],
+    "sources": [
+      {
+        "id": "card-prompting-basics",
+        "title": "Source card: Prompting",
+        "ref": "content/software-engineering/sources/prompting-basics.md"
+      }
+    ],
+    "difficulty": 1,
+    "retrieval_items": [
+      {
+        "id": "prompting-basics--example--q1",
+        "type": "mcq",
+        "prompt": "Why do few-shot examples work better than describing what you want?",
+        "choices": [
+          "They show exact input and output pairs",
+          "They reduce the total token count",
+          "They lower the model's temperature",
+          "They replace the need for a system prompt"
+        ],
+        "answer_index": 0,
+        "explanation": "Few-shot examples demonstrate the desired pattern concretely, which is more reliable than a description alone.",
+        "claim_ids": ["c2"]
+      },
+      {
+        "id": "prompting-basics--example--q2",
+        "type": "mcq",
+        "prompt": "Why wrap the user input in <ticket> tags inside the prompt?",
+        "choices": [
+          "To help the model separate instructions from data",
+          "To reduce the context window size",
+          "To force temperature to zero",
+          "To add a few-shot example"
+        ],
+        "answer_index": 0,
+        "explanation": "Delimiters or tags help the model distinguish the instructions from the data they apply to.",
+        "claim_ids": ["c3"]
+      }
+    ]
+  }
+}

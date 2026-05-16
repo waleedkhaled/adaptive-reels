@@ -1,0 +1,144 @@
+{
+  "reel_id": "rn-platform-code--example",
+  "label_source": "Checked on 2026-10-05 against the source card (claims, answer keys, code). Not yet approved in the review report.",
+  "concept": {
+    "id": "rn-platform-code",
+    "title": "Platform-specific code",
+    "summary": "Handling iOS and Android differences."
+  },
+  "topic": {
+    "id": "react-native",
+    "title": "React Native",
+    "summary": "Building native mobile apps with React."
+  },
+  "card": {
+    "ref": "content/software-engineering/sources/rn-platform-code.md",
+    "text": "# Platform-specific code\n\n1. Platform.OS tells you which platform the code is running on, for example 'ios' or 'android'.\n2. Platform.select picks a value per platform, such as Platform.select({ ios: 12, android: 16 }).\n3. Metro picks platform-specific files automatically: importing ./Button loads Button.ios.tsx on iOS and Button.android.tsx on Android.\n4. Use platform-specific files when a component differs a lot per platform, and Platform.OS checks for small differences.\n5. Platform.Version gives the operating system version, which helps when a feature exists only on newer OS versions.\n6. Some behaviour differs by platform even with the same code, so features should be tested on both iOS and Android devices.\n7. Keeping most code shared and isolating platform differences in a few places keeps an app easier to maintain."
+  },
+  "spec": {
+    "schema_version": 1,
+    "reel_id": "rn-platform-code--example",
+    "concept_id": "rn-platform-code",
+    "lang": "en",
+    "angle": "example",
+    "template": "visual-focus",
+    "target_duration_s": 30,
+    "hook": "Your React Native button looks great on iOS but off on Android. Here's the fix.",
+    "segments": [
+      {
+        "narration": "Platform dot select picks a value per platform. Give it an object with iOS and Android keys, and it returns the right one.",
+        "on_screen_text": "Platform.select({ ios: 12, android: 16 })",
+        "visual": {
+          "kind": "code",
+          "language": "tsx",
+          "code": "import { Platform } from 'react-native';\n\nexport const padding = Platform.select({\n  ios: 12,\n  android: 16,\n});",
+          "highlight_lines": [3],
+          "check": "compiles"
+        }
+      },
+      {
+        "narration": "For small differences, check Platform dot O S directly. It returns the string iOS or Android.",
+        "on_screen_text": "Platform.OS === 'ios'",
+        "visual": {
+          "kind": "code",
+          "language": "tsx",
+          "code": "import { Platform } from 'react-native';\n\nexport const shadow =\n  Platform.OS === 'ios'\n    ? { shadowOpacity: 0.2 }\n    : { elevation: 4 };",
+          "highlight_lines": [3, 4],
+          "check": "compiles"
+        }
+      },
+      {
+        "narration": "When a component differs a lot, use platform-specific files. Name them Button dot iOS dot tsx and Button dot Android dot tsx, and Metro loads the right one.",
+        "on_screen_text": "Metro auto-resolves .ios / .android files",
+        "visual": {
+          "kind": "flow",
+          "nodes": [
+            {
+              "id": "import-button",
+              "label": "import './Button'"
+            },
+            {
+              "id": "ios-file",
+              "label": "Button.ios.tsx"
+            },
+            {
+              "id": "android-file",
+              "label": "Button.android.tsx"
+            }
+          ],
+          "edges": [
+            {
+              "from": "import-button",
+              "to": "ios-file",
+              "label": "iOS"
+            },
+            {
+              "from": "import-button",
+              "to": "android-file",
+              "label": "Android"
+            }
+          ]
+        }
+      }
+    ],
+    "key_claims": [
+      {
+        "id": "c1",
+        "text": "Platform.select picks a value per platform, like Platform.select({ ios: 12, android: 16 }).",
+        "source_id": "card-rn-platform-code",
+        "quote": "Platform.select picks a value per platform, such as Platform.select({ ios: 12, android: 16 })."
+      },
+      {
+        "id": "c2",
+        "text": "Platform.OS returns the current platform string, like 'ios' or 'android'.",
+        "source_id": "card-rn-platform-code",
+        "quote": "Platform.OS tells you which platform the code is running on, for example 'ios' or 'android'."
+      },
+      {
+        "id": "c3",
+        "text": "Metro automatically loads platform-specific files like Button.ios.tsx on iOS and Button.android.tsx on Android.",
+        "source_id": "card-rn-platform-code",
+        "quote": "Metro picks platform-specific files automatically: importing ./Button loads Button.ios.tsx on iOS and Button.android.tsx on Android."
+      },
+      {
+        "id": "c4",
+        "text": "Use platform-specific files when a component differs a lot per platform, and Platform.OS checks for small differences.",
+        "source_id": "card-rn-platform-code",
+        "quote": "Use platform-specific files when a component differs a lot per platform, and Platform.OS checks for small differences."
+      }
+    ],
+    "sources": [
+      {
+        "id": "card-rn-platform-code",
+        "title": "Source card: Platform-specific code",
+        "ref": "content/software-engineering/sources/rn-platform-code.md"
+      }
+    ],
+    "difficulty": 2,
+    "retrieval_items": [
+      {
+        "id": "rn-platform-code--example--q1",
+        "type": "mcq",
+        "prompt": "When should you use platform-specific files instead of Platform.OS checks?",
+        "choices": [
+          "When a component differs a lot per platform",
+          "When you only need to change a single style value",
+          "Only when Platform.Version is unavailable",
+          "When you want to avoid importing Platform"
+        ],
+        "answer_index": 0,
+        "explanation": "Platform-specific files are for when a component differs a lot per platform; Platform.OS checks handle small differences.",
+        "claim_ids": ["c4"]
+      },
+      {
+        "id": "rn-platform-code--example--q2",
+        "type": "mcq",
+        "prompt": "What does Platform.select({ ios: 12, android: 16 }) return on Android?",
+        "choices": ["16", "12", "An object with both values", "undefined"],
+        "answer_index": 0,
+        "explanation": "Platform.select picks the value for the current platform, so on Android it returns 16.",
+        "claim_ids": ["c1"]
+      }
+    ]
+  }
+}

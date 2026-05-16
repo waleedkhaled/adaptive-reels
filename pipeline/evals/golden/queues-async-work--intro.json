@@ -1,0 +1,153 @@
+{
+  "reel_id": "queues-async-work--intro",
+  "label_source": "Checked on 2026-10-05 against the source card (claims, answer keys, code). Not yet approved in the review report.",
+  "concept": {
+    "id": "queues-async-work",
+    "title": "Queues and async work",
+    "summary": "Doing slow work outside the request."
+  },
+  "topic": {
+    "id": "systems-design",
+    "title": "Systems design in the age of AI",
+    "summary": "Designing systems that include models."
+  },
+  "card": {
+    "ref": "content/software-engineering/sources/queues-async-work.md",
+    "text": "# Queues and async work\n\n1. A queue lets one part of a system hand off work to be done later: a producer adds a job, and a worker takes it off the queue and processes it.\n2. Moving slow work, such as sending email or calling a model, out of the request lets the request return quickly.\n3. An API can accept a job, return an ID straight away, and let the client check the status or be notified when it finishes.\n4. A queue absorbs spikes in traffic: jobs wait instead of overloading the workers.\n5. Failed jobs can be retried with increasing delays; jobs that keep failing go to a dead-letter queue for inspection.\n6. Many queues deliver each message at least once, so a worker can receive the same job twice and must handle duplicates safely."
+  },
+  "spec": {
+    "schema_version": 1,
+    "reel_id": "queues-async-work--intro",
+    "concept_id": "queues-async-work",
+    "lang": "en",
+    "angle": "intro",
+    "template": "visual-focus",
+    "target_duration_s": 30,
+    "hook": "Your API takes ten seconds because it's calling a slow model in the request.",
+    "segments": [
+      {
+        "narration": "The fix is a queue. A producer adds a job to the queue, and a worker picks it up and processes it later.",
+        "on_screen_text": "Producer → Queue → Worker",
+        "visual": {
+          "kind": "flow",
+          "nodes": [
+            {
+              "id": "client",
+              "label": "Client"
+            },
+            {
+              "id": "api",
+              "label": "API"
+            },
+            {
+              "id": "queue",
+              "label": "Queue"
+            },
+            {
+              "id": "worker",
+              "label": "Worker"
+            }
+          ],
+          "edges": [
+            {
+              "from": "client",
+              "to": "api",
+              "label": "request"
+            },
+            {
+              "from": "api",
+              "to": "queue",
+              "label": "add job"
+            },
+            {
+              "from": "queue",
+              "to": "worker",
+              "label": "process"
+            },
+            {
+              "from": "worker",
+              "to": "client",
+              "label": "result later"
+            }
+          ]
+        }
+      },
+      {
+        "narration": "You move slow work like sending email or calling a model out of the request, so it returns fast.",
+        "on_screen_text": "Slow work → out of request → fast response",
+        "visual": {
+          "kind": "kinetic_text"
+        }
+      },
+      {
+        "narration": "Your API accepts the job, returns an ID right away, and lets the client check the status later.",
+        "on_screen_text": "Return an ID, check status later",
+        "visual": {
+          "kind": "code",
+          "language": "ts",
+          "code": "type JobId = string;\nlet counter = 0;\n\nfunction enqueue(data: unknown): JobId {\n  counter += 1;\n  return `job-${counter}`;\n}\n\nfunction handleRequest(data: unknown) {\n  const id = enqueue(data);\n  return { id };\n}",
+          "highlight_lines": [9, 10, 11],
+          "check": "compiles"
+        }
+      }
+    ],
+    "key_claims": [
+      {
+        "id": "c1",
+        "text": "A queue lets a producer hand off a job that a worker processes later.",
+        "source_id": "card-queues-async-work",
+        "quote": "A queue lets one part of a system hand off work to be done later: a producer adds a job, and a worker takes it off the queue and processes it."
+      },
+      {
+        "id": "c2",
+        "text": "Moving slow work out of the request lets the request return quickly.",
+        "source_id": "card-queues-async-work",
+        "quote": "Moving slow work, such as sending email or calling a model, out of the request lets the request return quickly."
+      },
+      {
+        "id": "c3",
+        "text": "An API can accept a job, return an ID immediately, and let the client check status later.",
+        "source_id": "card-queues-async-work",
+        "quote": "An API can accept a job, return an ID straight away, and let the client check the status or be notified when it finishes."
+      }
+    ],
+    "sources": [
+      {
+        "id": "card-queues-async-work",
+        "title": "Source card: Queues and async work",
+        "ref": "content/software-engineering/sources/queues-async-work.md"
+      }
+    ],
+    "difficulty": 1,
+    "retrieval_items": [
+      {
+        "id": "queues-async-work--intro--q1",
+        "type": "mcq",
+        "prompt": "What are the two roles in a basic queue system?",
+        "choices": [
+          "Producer and worker",
+          "Client and server",
+          "Sender and receiver",
+          "Caller and handler"
+        ],
+        "answer_index": 0,
+        "explanation": "A producer adds a job to the queue and a worker takes it off and processes it.",
+        "claim_ids": ["c1"]
+      },
+      {
+        "id": "queues-async-work--intro--q2",
+        "type": "mcq",
+        "prompt": "How does an API return quickly when work is queued?",
+        "choices": [
+          "It returns an ID right away for later status checks",
+          "It blocks until the worker finishes",
+          "It caches the result for the next call",
+          "It runs the work in a background thread"
+        ],
+        "answer_index": 0,
+        "explanation": "The API accepts the job, returns an ID straight away, and lets the client check status or be notified when it finishes.",
+        "claim_ids": ["c3"]
+      }
+    ]
+  }
+}

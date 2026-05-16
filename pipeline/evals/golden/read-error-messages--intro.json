@@ -1,0 +1,119 @@
+{
+  "reel_id": "read-error-messages--intro",
+  "label_source": "Checked on 2026-10-05 against the source card (claims, answer keys, code). Not yet approved in the review report.",
+  "concept": {
+    "id": "read-error-messages",
+    "title": "Reading error messages",
+    "summary": "Get the most out of stack traces."
+  },
+  "topic": {
+    "id": "problem-solving",
+    "title": "Problem solving",
+    "summary": "How engineers find and fix problems."
+  },
+  "card": {
+    "ref": "content/software-engineering/sources/read-error-messages.md",
+    "text": "# Reading error messages\n\n1. Read the whole error message before acting; the first line usually names the type of error and what went wrong.\n2. A stack trace lists the function calls that led to the error, with the place where it was thrown at the top.\n3. Look for the first stack frame in your own code: that is usually the best place to start investigating.\n4. Many errors include a cause or an earlier error; the first error in a log is often the real problem and later ones are consequences.\n5. Searching the exact error message in quotes often finds others who hit the same problem.\n6. Source maps translate line numbers in bundled or minified code back to your original source files.\n7. Reading the error carefully is faster than guessing, because the message often names the file, line and value involved."
+  },
+  "spec": {
+    "schema_version": 1,
+    "reel_id": "read-error-messages--intro",
+    "concept_id": "read-error-messages",
+    "lang": "en",
+    "angle": "intro",
+    "template": "visual-focus",
+    "target_duration_s": 30,
+    "hook": "A wall of red text just appeared in your terminal. Do you scroll past it?",
+    "segments": [
+      {
+        "narration": "Stop. Read the whole error message before acting. The first line usually names the type of error and what went wrong.",
+        "on_screen_text": "Read the whole error first",
+        "visual": {
+          "kind": "kinetic_text"
+        }
+      },
+      {
+        "narration": "The stack trace below lists the calls that led here, with the throw at the top. Find the first frame in your own code — start there.",
+        "on_screen_text": "First frame in your code = start there",
+        "visual": {
+          "kind": "code",
+          "language": "bash",
+          "code": "TypeError: Cannot read 'id' of undefined\n  at getUser (user.ts:12)\n  at handleRequest (handler.ts:45)\n  at app.listen (server.ts:8)",
+          "highlight_lines": [2],
+          "check": "none"
+        }
+      },
+      {
+        "narration": "Reading carefully is faster than guessing. The message often names the file, line, and value involved.",
+        "on_screen_text": "Reading > guessing",
+        "visual": {
+          "kind": "kinetic_text"
+        }
+      }
+    ],
+    "key_claims": [
+      {
+        "id": "c1",
+        "text": "Read the entire error message before acting; the first line typically identifies the error type and what went wrong.",
+        "source_id": "card-read-error-messages",
+        "quote": "Read the whole error message before acting; the first line usually names the type of error and what went wrong."
+      },
+      {
+        "id": "c2",
+        "text": "A stack trace lists the function calls leading to the error, with the thrown location at the top.",
+        "source_id": "card-read-error-messages",
+        "quote": "A stack trace lists the function calls that led to the error, with the place where it was thrown at the top."
+      },
+      {
+        "id": "c3",
+        "text": "The first stack frame in your own code is usually the best place to start investigating.",
+        "source_id": "card-read-error-messages",
+        "quote": "Look for the first stack frame in your own code: that is usually the best place to start investigating."
+      },
+      {
+        "id": "c4",
+        "text": "Reading the error carefully is faster than guessing because the message often names the file, line, and value involved.",
+        "source_id": "card-read-error-messages",
+        "quote": "Reading the error carefully is faster than guessing, because the message often names the file, line and value involved."
+      }
+    ],
+    "sources": [
+      {
+        "id": "card-read-error-messages",
+        "title": "Source card: Reading error messages",
+        "ref": "content/software-engineering/sources/read-error-messages.md"
+      }
+    ],
+    "difficulty": 1,
+    "retrieval_items": [
+      {
+        "id": "read-error-messages--intro--q1",
+        "type": "mcq",
+        "prompt": "What does the first line of an error message usually tell you?",
+        "choices": [
+          "The exact fix to apply",
+          "The type of error and what went wrong",
+          "Which developer wrote the buggy code",
+          "How many stack frames exist"
+        ],
+        "answer_index": 1,
+        "explanation": "The first line usually names the type of error and what went wrong, so read it before acting.",
+        "claim_ids": ["c1"]
+      },
+      {
+        "id": "read-error-messages--intro--q2",
+        "type": "mcq",
+        "prompt": "Where in a stack trace should you look for the best place to start investigating?",
+        "choices": [
+          "The last frame at the bottom",
+          "Any frame inside a third-party library",
+          "The first frame in your own code",
+          "The frame with the longest function name"
+        ],
+        "answer_index": 2,
+        "explanation": "The first stack frame in your own code is usually the best place to start investigating.",
+        "claim_ids": ["c3"]
+      }
+    ]
+  }
+}

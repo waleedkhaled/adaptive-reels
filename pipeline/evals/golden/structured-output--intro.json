@@ -1,0 +1,123 @@
+{
+  "reel_id": "structured-output--intro",
+  "label_source": "Checked on 2026-10-05 against the source card (claims, answer keys, code). Not yet approved in the review report.",
+  "concept": {
+    "id": "structured-output",
+    "title": "Structured output",
+    "summary": "Getting JSON you can parse and validate."
+  },
+  "topic": {
+    "id": "ai-engineering",
+    "title": "AI engineering",
+    "summary": "Building reliable products on language models."
+  },
+  "card": {
+    "ref": "content/software-engineering/sources/structured-output.md",
+    "text": "# Structured output\n\n1. Structured output means getting a model to return data, such as JSON, that your code can parse instead of free text.\n2. JSON mode makes the model return syntactically valid JSON, but does not guarantee the fields you expect.\n3. Structured outputs with a JSON Schema constrain the model's output to match that schema.\n4. Validate the parsed output with a schema validator such as Zod anyway, because providers and models differ in how strictly they enforce schemas.\n5. If the output hits the maximum token limit, the JSON is cut off and will not parse.\n6. Enums for fixed choices, such as 'positive' | 'negative' | 'neutral', are easier for models to follow and for code to handle than free text.\n7. When validation fails, sending the errors back to the model and asking for a corrected version often fixes the output."
+  },
+  "spec": {
+    "schema_version": 1,
+    "reel_id": "structured-output--intro",
+    "concept_id": "structured-output",
+    "lang": "en",
+    "angle": "intro",
+    "template": "visual-focus",
+    "target_duration_s": 30,
+    "hook": "Ever asked an LLM for JSON and gotten prose back instead?",
+    "segments": [
+      {
+        "narration": "Structured output means getting a model to return data like JSON that your code can parse instead of free text.",
+        "on_screen_text": "Structured output = JSON your code can parse",
+        "visual": {
+          "kind": "kinetic_text"
+        }
+      },
+      {
+        "narration": "JSON mode guarantees valid JSON, but not the fields you expect. A JSON Schema constrains the output to match your schema.",
+        "on_screen_text": "JSON Schema constrains the model's output",
+        "visual": {
+          "kind": "code",
+          "language": "json",
+          "code": "{\n  \"type\": \"object\",\n  \"required\": [\"mood\"],\n  \"properties\": {\n    \"mood\": { \"enum\": [\n      \"positive\", \"negative\", \"neutral\"\n    ]}\n  }\n}",
+          "highlight_lines": [5, 6],
+          "check": "none"
+        }
+      },
+      {
+        "narration": "Still validate with a library like Zod, because providers and models differ in how strictly they enforce schemas.",
+        "on_screen_text": "Always validate with Zod anyway",
+        "visual": {
+          "kind": "code",
+          "language": "ts",
+          "code": "import { z } from \"zod\";\n\nconst S = z.object({\n  mood: z.enum([\n    \"positive\", \"negative\", \"neutral\",\n  ]),\n});\n\nS.parse({} as unknown);",
+          "highlight_lines": [4, 9],
+          "check": "compiles"
+        }
+      }
+    ],
+    "key_claims": [
+      {
+        "id": "c1",
+        "text": "Structured output means getting a model to return data like JSON that your code can parse instead of free text.",
+        "source_id": "card-structured-output",
+        "quote": "Structured output means getting a model to return data, such as JSON, that your code can parse instead of free text."
+      },
+      {
+        "id": "c2",
+        "text": "JSON mode returns syntactically valid JSON but does not guarantee the fields you expect.",
+        "source_id": "card-structured-output",
+        "quote": "JSON mode makes the model return syntactically valid JSON, but does not guarantee the fields you expect."
+      },
+      {
+        "id": "c3",
+        "text": "A JSON Schema constrains the model's output to match that schema.",
+        "source_id": "card-structured-output",
+        "quote": "Structured outputs with a JSON Schema constrain the model's output to match that schema."
+      },
+      {
+        "id": "c4",
+        "text": "Validate the parsed output with a schema validator like Zod anyway, because providers and models differ in enforcement strictness.",
+        "source_id": "card-structured-output",
+        "quote": "Validate the parsed output with a schema validator such as Zod anyway, because providers and models differ in how strictly they enforce schemas."
+      }
+    ],
+    "sources": [
+      {
+        "id": "card-structured-output",
+        "title": "Source card: Structured output",
+        "ref": "content/software-engineering/sources/structured-output.md"
+      }
+    ],
+    "difficulty": 1,
+    "retrieval_items": [
+      {
+        "id": "structured-output--intro--q1",
+        "type": "mcq",
+        "prompt": "What does JSON mode guarantee about the model's output?",
+        "choices": [
+          "Syntactically valid JSON, but not specific fields",
+          "The exact fields you requested in your prompt",
+          "Output that matches your JSON Schema",
+          "Output that never exceeds the token limit"
+        ],
+        "answer_index": 0,
+        "explanation": "JSON mode ensures valid JSON syntax but does not guarantee the fields you expect; a JSON Schema is needed for that.",
+        "claim_ids": ["c2"]
+      },
+      {
+        "id": "structured-output--intro--q2",
+        "type": "mcq",
+        "prompt": "Why should you validate the parsed output with a library like Zod even when using structured outputs?",
+        "choices": [
+          "Because providers and models differ in schema enforcement strictness",
+          "Because JSON mode doesn't produce valid JSON",
+          "Because Zod replaces the need for a JSON Schema",
+          "Because the model always returns XML by default"
+        ],
+        "answer_index": 0,
+        "explanation": "Providers and models differ in how strictly they enforce schemas, so you should always validate on your side.",
+        "claim_ids": ["c4"]
+      }
+    ]
+  }
+}

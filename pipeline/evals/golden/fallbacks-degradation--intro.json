@@ -1,0 +1,113 @@
+{
+  "reel_id": "fallbacks-degradation--intro",
+  "label_source": "Checked on 2026-10-05 against the source card (claims, answer keys, code). Not yet approved in the review report.",
+  "concept": {
+    "id": "fallbacks-degradation",
+    "title": "Fallbacks and graceful degradation",
+    "summary": "What to do when a dependency fails."
+  },
+  "topic": {
+    "id": "systems-design",
+    "title": "Systems design in the age of AI",
+    "summary": "Designing systems that include models."
+  },
+  "card": {
+    "ref": "content/software-engineering/sources/fallbacks-degradation.md",
+    "text": "# Fallbacks and graceful degradation\n\n1. Graceful degradation means that when a dependency fails, the product keeps working with reduced features instead of failing completely.\n2. Fallbacks for a model call include a cached answer, a smaller or backup model, another provider, a simple rule-based default, or queueing the work for later.\n3. A circuit breaker stops calling a dependency that keeps failing for a cooldown period, which protects both your system and the dependency.\n4. Fallback paths must be tested, because code that only runs during outages is often broken when it is finally needed.\n5. Tell users when they are getting a degraded result, so they are not misled."
+  },
+  "spec": {
+    "schema_version": 1,
+    "reel_id": "fallbacks-degradation--intro",
+    "concept_id": "fallbacks-degradation",
+    "lang": "en",
+    "angle": "intro",
+    "template": "visual-focus",
+    "target_duration_s": 30,
+    "hook": "Your LLM call just timed out. Do you fail the whole request?",
+    "segments": [
+      {
+        "narration": "When a dependency fails, graceful degradation means the product keeps working with reduced features instead of failing completely.",
+        "on_screen_text": "Graceful degradation: reduced features, not failure",
+        "visual": {
+          "kind": "kinetic_text"
+        }
+      },
+      {
+        "narration": "For a model call, fall back to a cached answer, a backup model, another provider, a rule-based default, or queue the work for later.",
+        "on_screen_text": "Fallbacks: cache, backup model, rules, queue",
+        "visual": {
+          "kind": "code",
+          "language": "ts",
+          "code": "async function answer<T>(\n  primary: () => Promise<T>,\n  fallback: () => T,\n): Promise<T> {\n  try {\n    return await primary();\n  } catch {\n    return fallback();\n  }\n}",
+          "highlight_lines": [8],
+          "check": "compiles"
+        }
+      },
+      {
+        "narration": "And tell users when they're getting a degraded result, so they're not misled by what they see.",
+        "on_screen_text": "Tell users about degraded results",
+        "visual": {
+          "kind": "kinetic_text"
+        }
+      }
+    ],
+    "key_claims": [
+      {
+        "id": "c1",
+        "text": "Graceful degradation keeps the product working with reduced features instead of failing completely when a dependency fails.",
+        "source_id": "card-fallbacks-degradation",
+        "quote": "Graceful degradation means that when a dependency fails, the product keeps working with reduced features instead of failing completely."
+      },
+      {
+        "id": "c2",
+        "text": "Model call fallbacks include a cached answer, a backup model, another provider, a rule-based default, or queueing for later.",
+        "source_id": "card-fallbacks-degradation",
+        "quote": "Fallbacks for a model call include a cached answer, a smaller or backup model, another provider, a simple rule-based default, or queueing the work for later."
+      },
+      {
+        "id": "c3",
+        "text": "Tell users when they're getting a degraded result so they're not misled.",
+        "source_id": "card-fallbacks-degradation",
+        "quote": "Tell users when they are getting a degraded result, so they are not misled."
+      }
+    ],
+    "sources": [
+      {
+        "id": "card-fallbacks-degradation",
+        "title": "Source card: Fallbacks and graceful degradation",
+        "ref": "content/software-engineering/sources/fallbacks-degradation.md"
+      }
+    ],
+    "difficulty": 1,
+    "retrieval_items": [
+      {
+        "id": "fallbacks-degradation--intro--q1",
+        "type": "mcq",
+        "prompt": "What does graceful degradation mean when a dependency fails?",
+        "choices": [
+          "The product keeps working with reduced features instead of failing completely.",
+          "The product retries the dependency until it eventually succeeds.",
+          "The product returns an error to the user immediately.",
+          "The product removes the failing feature permanently."
+        ],
+        "answer_index": 0,
+        "explanation": "Graceful degradation keeps the product working with reduced features rather than failing completely.",
+        "claim_ids": ["c1"]
+      },
+      {
+        "id": "fallbacks-degradation--intro--q2",
+        "type": "mcq",
+        "prompt": "Which of these is a valid fallback for a model call?",
+        "choices": [
+          "A cached answer or a backup model",
+          "Only retrying the same model with a longer timeout",
+          "Disabling the feature for all users permanently",
+          "Returning a 500 status code to the user"
+        ],
+        "answer_index": 0,
+        "explanation": "Fallbacks include a cached answer, a backup model, another provider, a rule-based default, or queueing for later.",
+        "claim_ids": ["c2"]
+      }
+    ]
+  }
+}

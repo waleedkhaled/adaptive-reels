@@ -1,0 +1,133 @@
+{
+  "reel_id": "react-components-props--example",
+  "label_source": "Checked on 2026-10-05 against the source card (claims, answer keys, code). Not yet approved in the review report.",
+  "concept": {
+    "id": "react-components-props",
+    "title": "Components and props",
+    "summary": "Functions that take props and return UI."
+  },
+  "topic": {
+    "id": "react-typescript",
+    "title": "React and TypeScript",
+    "summary": "Components, state and types."
+  },
+  "card": {
+    "ref": "content/software-engineering/sources/react-components-props.md",
+    "text": "# Components and props in React\n\n1. A React component is a JavaScript function that returns JSX describing what should appear on screen.\n2. Component names must start with a capital letter. A lowercase tag such as div is treated as a built-in element, not as your component.\n3. Props are the inputs to a component. They are written like attributes in JSX and arrive in the function as a single object.\n4. Props are read-only. A component must never modify its own props; to change what is shown over time it uses state instead.\n5. When a parent re-renders and passes new props, the child component renders again with the new values.\n6. The special children prop holds whatever is nested between a component's opening and closing tags.\n7. Data flows one way in React: from parent to child through props.\n8. In TypeScript, a component's props are described with a type or interface, for example function Greeting({ name }: { name: string }).\n9. With typed props, passing a prop of the wrong type or forgetting a required prop is a compile-time error instead of a bug found at runtime."
+  },
+  "spec": {
+    "schema_version": 1,
+    "reel_id": "react-components-props--example",
+    "concept_id": "react-components-props",
+    "lang": "en",
+    "angle": "example",
+    "template": "visual-focus",
+    "target_duration_s": 30,
+    "hook": "Want to reuse UI across your app? Build a component.",
+    "segments": [
+      {
+        "narration": "A React component is a function. It takes props as one object and returns J S X. In TypeScript, describe the props with a type in the parameter list.",
+        "on_screen_text": "Props arrive as one object",
+        "visual": {
+          "kind": "code",
+          "language": "tsx",
+          "code": "type Props = { name: string };\nfunction Greeting({ name }: Props) {\n  return <h1>Hello, {name}</h1>;\n}",
+          "highlight_lines": [1, 2],
+          "check": "compiles"
+        }
+      },
+      {
+        "narration": "Use it like an HTML tag. Props are written like attributes and flow one way from parent to child.",
+        "on_screen_text": "Props flow one way: parent to child",
+        "visual": {
+          "kind": "code",
+          "language": "tsx",
+          "code": "type Props = { name: string };\nfunction Greeting({ name }: Props) {\n  return <h1>Hello, {name}</h1>;\n}\nfunction App() {\n  return <Greeting name=\"Ada\" />;\n}",
+          "highlight_lines": [6],
+          "check": "compiles"
+        }
+      },
+      {
+        "narration": "Pass the wrong type or forget a required prop, and TypeScript catches it at compile time, not at runtime.",
+        "on_screen_text": "Wrong type = compile-time error",
+        "visual": {
+          "kind": "code",
+          "language": "tsx",
+          "code": "type Props = { name: string };\nfunction Greeting({ name }: Props) {\n  return <h1>Hello, {name}</h1>;\n}\nfunction App() {\n  return <Greeting name={42} />;\n}",
+          "highlight_lines": [6],
+          "check": "should_error"
+        }
+      }
+    ],
+    "key_claims": [
+      {
+        "id": "c1",
+        "text": "A React component is a function that returns JSX.",
+        "source_id": "card-react-components-props",
+        "quote": "A React component is a JavaScript function that returns JSX describing what should appear on screen."
+      },
+      {
+        "id": "c2",
+        "text": "In TypeScript, you describe a component's props with a type in the parameter list.",
+        "source_id": "card-react-components-props",
+        "quote": "In TypeScript, a component's props are described with a type or interface, for example function Greeting({ name }: { name: string })."
+      },
+      {
+        "id": "c3",
+        "text": "Props flow one way from parent to child.",
+        "source_id": "card-react-components-props",
+        "quote": "Data flows one way in React: from parent to child through props."
+      },
+      {
+        "id": "c4",
+        "text": "Passing a prop of the wrong type or forgetting a required prop is a compile-time error.",
+        "source_id": "card-react-components-props",
+        "quote": "With typed props, passing a prop of the wrong type or forgetting a required prop is a compile-time error instead of a bug found at runtime."
+      },
+      {
+        "id": "c5",
+        "text": "Props are written like attributes in JSX and arrive as a single object.",
+        "source_id": "card-react-components-props",
+        "quote": "They are written like attributes in JSX and arrive in the function as a single object."
+      }
+    ],
+    "sources": [
+      {
+        "id": "card-react-components-props",
+        "title": "Source card: Components and props in React",
+        "ref": "content/software-engineering/sources/react-components-props.md"
+      }
+    ],
+    "difficulty": 1,
+    "retrieval_items": [
+      {
+        "id": "react-components-props--example--q1",
+        "type": "mcq",
+        "prompt": "How do props arrive inside a React component function?",
+        "choices": [
+          "As a single object",
+          "As separate function arguments",
+          "As an array of values",
+          "From a global store"
+        ],
+        "answer_index": 0,
+        "explanation": "Props are written like attributes in JSX and arrive in the function as one object.",
+        "claim_ids": ["c5"]
+      },
+      {
+        "id": "react-components-props--example--q2",
+        "type": "mcq",
+        "prompt": "What happens if you pass a prop of the wrong type to a TypeScript component?",
+        "choices": [
+          "Compile-time error",
+          "Runtime error",
+          "The prop is silently ignored",
+          "The component returns null"
+        ],
+        "answer_index": 0,
+        "explanation": "With typed props, passing a prop of the wrong type is a compile-time error, not a runtime bug.",
+        "claim_ids": ["c4"]
+      }
+    ]
+  }
+}

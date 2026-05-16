@@ -1,0 +1,104 @@
+{
+  "reel_id": "react-state--pitfall",
+  "label_source": "Checked on 2026-10-05 against the source card (claims, answer keys, code). Not yet approved in the review report.",
+  "concept": {
+    "id": "react-state",
+    "title": "State",
+    "summary": "Data that changes over time and triggers re-renders."
+  },
+  "topic": {
+    "id": "react-typescript",
+    "title": "React and TypeScript",
+    "summary": "Components, state and types."
+  },
+  "card": {
+    "ref": "content/software-engineering/sources/react-state.md",
+    "text": "# State in React\n\n1. State is data a component remembers between renders; useState returns the current value and a setter function.\n2. Calling the setter schedules a re-render with the new value.\n3. State behaves like a snapshot: right after calling the setter, the variable in the current render still holds the old value.\n4. When the next value depends on the previous one, pass an updater function, such as setCount(c => c + 1).\n5. React batches several state updates in the same event into a single re-render.\n6. Never mutate a state object or array directly; create a new copy with the change, because React compares old and new values with Object.is to decide what changed.\n7. Each component instance has its own state; two copies of the same component do not share it.\n8. When two components need the same state, move it up to their closest common parent and pass it down as props. This is called lifting state up."
+  },
+  "spec": {
+    "schema_version": 1,
+    "reel_id": "react-state--pitfall",
+    "concept_id": "react-state",
+    "lang": "en",
+    "angle": "pitfall",
+    "template": "visual-focus",
+    "target_duration_s": 30,
+    "hook": "Your React state update silently does nothing? Here's the likely culprit.",
+    "segments": [
+      {
+        "narration": "If you mutate a state object directly and then call the setter, React may skip the re-render entirely. The object reference hasn't changed, so React's Object.is comparison sees no difference.",
+        "on_screen_text": "Direct mutation → React sees no change",
+        "visual": {
+          "kind": "code",
+          "language": "tsx",
+          "code": "import { useState } from \"react\"\nfunction P() {\n  type U = {readonly name: string}\n  const [u, s] = useState<U>({name: \"Ada\"})\n  const f = () => { u.name = \"Grace\"; s(u) }\n  return <button onClick={f}>\n    {u.name}\n  </button>\n}",
+          "highlight_lines": [5],
+          "check": "should_error"
+        }
+      },
+      {
+        "narration": "Instead, always create a new copy with the change. Pass a fresh object to the setter so React detects the difference and schedules a re-render with the updated value.",
+        "on_screen_text": "New copy → React detects the change",
+        "visual": {
+          "kind": "code",
+          "language": "tsx",
+          "code": "import { useState } from \"react\"\nfunction P() {\n  type U = { readonly name: string }\n  const [u, s] = useState<U>({\n    name: \"Ada\",\n  })\n  const f = () =>\n    s({ ...u, name: \"Grace\" })\n  return (\n    <button onClick={f}>{u.name}</button>\n  )\n}",
+          "highlight_lines": [7, 8],
+          "check": "compiles"
+        }
+      }
+    ],
+    "key_claims": [
+      {
+        "id": "c1",
+        "text": "Directly mutating a state object or array won't trigger a re-render because React compares old and new values with Object.is, and a mutation keeps the same reference.",
+        "source_id": "card-react-state",
+        "quote": "Never mutate a state object or array directly; create a new copy with the change, because React compares old and new values with Object.is to decide what changed."
+      },
+      {
+        "id": "c2",
+        "text": "Create a new copy with the change and pass it to the setter so React schedules a re-render with the new value.",
+        "source_id": "card-react-state",
+        "quote": "Calling the setter schedules a re-render with the new value."
+      }
+    ],
+    "sources": [
+      {
+        "id": "card-react-state",
+        "title": "Source card: State in React",
+        "ref": "content/software-engineering/sources/react-state.md"
+      }
+    ],
+    "difficulty": 2,
+    "retrieval_items": [
+      {
+        "id": "react-state--pitfall--q1",
+        "type": "mcq",
+        "prompt": "You mutate a state object directly and call the setter, but the component doesn't re-render. Why?",
+        "choices": [
+          "Object.is sees the same reference, so React skips the re-render",
+          "The setter only works with primitive values like numbers and strings",
+          "You need to call the setter twice for object updates",
+          "State updates are asynchronous and require a setTimeout"
+        ],
+        "answer_index": 0,
+        "explanation": "React uses Object.is to decide what changed. Mutating an object in place keeps the same reference, so Object.is returns true and React skips the re-render.",
+        "claim_ids": ["c1"]
+      },
+      {
+        "id": "react-state--pitfall--q2",
+        "type": "mcq",
+        "prompt": "What's the correct way to update a state object in React?",
+        "choices": [
+          "Mutate the object directly, then call the setter with the same object",
+          "Create a new copy with the change, then pass it to the setter",
+          "Use a ref instead of state for all object values",
+          "Call forceUpdate after mutating the object"
+        ],
+        "answer_index": 1,
+        "explanation": "Creating a new copy gives React a new reference to compare. Object.is sees the difference, and the setter schedules a re-render with the new value.",
+        "claim_ids": ["c1", "c2"]
+      }
+    ]
+  }
+}

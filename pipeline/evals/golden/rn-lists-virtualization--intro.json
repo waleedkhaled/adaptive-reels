@@ -1,0 +1,143 @@
+{
+  "reel_id": "rn-lists-virtualization--intro",
+  "label_source": "Checked on 2026-10-05 against the source card (claims, answer keys, code). Not yet approved in the review report.",
+  "concept": {
+    "id": "rn-lists-virtualization",
+    "title": "Lists and virtualization",
+    "summary": "Rendering long lists without rendering every row."
+  },
+  "topic": {
+    "id": "react-native",
+    "title": "React Native",
+    "summary": "Building native mobile apps with React."
+  },
+  "card": {
+    "ref": "content/software-engineering/sources/rn-lists-virtualization.md",
+    "text": "# Lists and virtualization\n\n1. ScrollView renders all of its children at once, which is fine for short content but slow and memory hungry for long lists.\n2. FlatList is a virtualized list: it renders only the items in and near the visible area, and unmounts items far off screen.\n3. FlatList renders 10 items initially by default, controlled by initialNumToRender.\n4. windowSize controls how much is kept rendered, measured in screen heights; the default is 21, meaning 10 screens above, 10 below and the visible one.\n5. Each item needs a stable key, given through a key on the item or a keyExtractor function; using the array index breaks when items are inserted or removed.\n6. When every row has the same height, getItemLayout lets FlatList skip measuring rows, which makes scrolling to an index fast.\n7. Wrapping the row component in React.memo stops unchanged rows from re-rendering when the list's parent re-renders.\n8. Third-party lists such as FlashList recycle row views instead of creating new ones, which can make long lists smoother."
+  },
+  "spec": {
+    "schema_version": 1,
+    "reel_id": "rn-lists-virtualization--intro",
+    "concept_id": "rn-lists-virtualization",
+    "lang": "en",
+    "angle": "intro",
+    "template": "visual-focus",
+    "target_duration_s": 30,
+    "hook": "Ever scroll a long list in your React Native app and watch it stutter?",
+    "segments": [
+      {
+        "narration": "ScrollView renders all its children at once. Fine for short content, but for a thousand rows that's slow and memory hungry.",
+        "on_screen_text": "ScrollView renders everything",
+        "visual": {
+          "kind": "code",
+          "language": "tsx",
+          "code": "import { ScrollView } from \"react-native\";\ntype Item = { id: string };\nconst items: Item[] = [];\nconst Row = (_: { item: Item }) => null;\nconst List = () => (\n  <ScrollView>\n    {items.map(i => (\n      <Row key={i.id} item={i} />\n    ))}\n  </ScrollView>\n);",
+          "highlight_lines": [6],
+          "check": "compiles"
+        }
+      },
+      {
+        "narration": "FlatList is virtualized. It renders only the items in and near the visible area, and unmounts items far off screen.",
+        "on_screen_text": "FlatList = virtualized",
+        "visual": {
+          "kind": "flow",
+          "nodes": [
+            {
+              "id": "all-items",
+              "label": "All list items"
+            },
+            {
+              "id": "rendered",
+              "label": "Rendered"
+            },
+            {
+              "id": "unmounted",
+              "label": "Unmounted"
+            }
+          ],
+          "edges": [
+            {
+              "from": "all-items",
+              "to": "rendered",
+              "label": "near viewport"
+            },
+            {
+              "from": "all-items",
+              "to": "unmounted",
+              "label": "far off-screen"
+            }
+          ]
+        }
+      },
+      {
+        "narration": "By default it starts with ten items and keeps about twenty-one screen heights rendered. That's how long lists stay smooth.",
+        "on_screen_text": "initialNumToRender = 10",
+        "visual": {
+          "kind": "code",
+          "language": "tsx",
+          "code": "import { FlatList } from \"react-native\";\ntype Item = { id: string };\nconst data: Item[] = [];\nconst Row = (_: { item: Item }) => null;\nconst List = () => (\n  <FlatList data={data} renderItem={Row}\n    keyExtractor={i => i.id}\n    initialNumToRender={10} />\n);",
+          "highlight_lines": [8],
+          "check": "compiles"
+        }
+      }
+    ],
+    "key_claims": [
+      {
+        "id": "c1",
+        "text": "ScrollView renders all children at once, which is slow and memory hungry for long lists.",
+        "source_id": "card-rn-lists-virtualization",
+        "quote": "ScrollView renders all of its children at once, which is fine for short content but slow and memory hungry for long lists."
+      },
+      {
+        "id": "c2",
+        "text": "FlatList is virtualized: it only renders visible and nearby items, and unmounts far off-screen ones.",
+        "source_id": "card-rn-lists-virtualization",
+        "quote": "FlatList is a virtualized list: it renders only the items in and near the visible area, and unmounts items far off screen."
+      },
+      {
+        "id": "c3",
+        "text": "FlatList renders 10 items initially by default, controlled by initialNumToRender.",
+        "source_id": "card-rn-lists-virtualization",
+        "quote": "FlatList renders 10 items initially by default, controlled by initialNumToRender."
+      }
+    ],
+    "sources": [
+      {
+        "id": "card-rn-lists-virtualization",
+        "title": "Source card: Lists and virtualization",
+        "ref": "content/software-engineering/sources/rn-lists-virtualization.md"
+      }
+    ],
+    "difficulty": 1,
+    "retrieval_items": [
+      {
+        "id": "rn-lists-virtualization--intro--q1",
+        "type": "mcq",
+        "prompt": "Why is ScrollView problematic for long lists in React Native?",
+        "choices": [
+          "It renders all children at once, using too much memory",
+          "It does not support scrolling vertically",
+          "It requires a keyExtractor function",
+          "It only renders items near the visible area"
+        ],
+        "answer_index": 0,
+        "explanation": "ScrollView renders every child immediately, which is fine for short content but slow and memory hungry for long lists.",
+        "claim_ids": ["c1"]
+      },
+      {
+        "id": "rn-lists-virtualization--intro--q2",
+        "type": "mcq",
+        "prompt": "What does FlatList do with items that are far off screen?",
+        "choices": [
+          "It unmounts them",
+          "It keeps them rendered at full resolution",
+          "It moves them to a separate ScrollView",
+          "It caches them in local storage"
+        ],
+        "answer_index": 0,
+        "explanation": "FlatList is virtualized: it renders only items in and near the visible area and unmounts items far off screen.",
+        "claim_ids": ["c2"]
+      }
+    ]
+  }
+}

@@ -1,0 +1,145 @@
+{
+  "reel_id": "rn-core-components--intro",
+  "label_source": "Checked on 2026-10-05 against the source card (claims, answer keys, code). Not yet approved in the review report.",
+  "concept": {
+    "id": "rn-core-components",
+    "title": "Core components",
+    "summary": "View, Text and Image render real native views."
+  },
+  "topic": {
+    "id": "react-native",
+    "title": "React Native",
+    "summary": "Building native mobile apps with React."
+  },
+  "card": {
+    "ref": "content/software-engineering/sources/rn-core-components.md",
+    "text": "# Core components in React Native\n\n1. React Native core components such as View, Text, Image and ScrollView render real native platform views, not HTML inside a web view.\n2. On iOS a View becomes a UIView, and on Android it becomes an android.view.View.\n3. React Native has no div, span or p elements. View is the basic container and Text displays text.\n4. Text strings must be rendered inside a Text component. A bare string placed directly inside a View causes the error \"Text strings must be rendered within a <Text> component\".\n5. Styles are plain JavaScript objects, usually created with StyleSheet.create, and property names are camelCase, such as backgroundColor and fontSize.\n6. React Native lays out views with Flexbox, and flexDirection defaults to column, unlike the web where it defaults to row.\n7. Sizes in React Native styles are unitless density-independent pixels, so 16 means roughly the same physical size on screens with different pixel densities.\n8. The same component code runs on both iOS and Android. Platform differences can be handled with Platform.OS or with files ending in .ios.tsx and .android.tsx."
+  },
+  "spec": {
+    "schema_version": 1,
+    "reel_id": "rn-core-components--intro",
+    "concept_id": "rn-core-components",
+    "lang": "en",
+    "angle": "intro",
+    "template": "visual-focus",
+    "target_duration_s": 30,
+    "hook": "Coming from the web, you reach for a div, but React Native has none.",
+    "segments": [
+      {
+        "narration": "React Native core components like View, Text, and Image render real native platform views, not HTML inside a web view.",
+        "on_screen_text": "View, Text, Image → real native views",
+        "visual": {
+          "kind": "kinetic_text"
+        }
+      },
+      {
+        "narration": "On iOS, a View becomes a UIView. On Android, it becomes an Android View. There's no div, span, or p.",
+        "on_screen_text": "View → UIView / android.view.View",
+        "visual": {
+          "kind": "flow",
+          "nodes": [
+            {
+              "id": "view",
+              "label": "View"
+            },
+            {
+              "id": "uiview",
+              "label": "UIView (iOS)"
+            },
+            {
+              "id": "android-view",
+              "label": "android.view.View"
+            }
+          ],
+          "edges": [
+            {
+              "from": "view",
+              "to": "uiview",
+              "label": "iOS"
+            },
+            {
+              "from": "view",
+              "to": "android-view",
+              "label": "Android"
+            }
+          ]
+        }
+      },
+      {
+        "narration": "View is the basic container, and Text displays text. Put a bare string directly in a View and you'll get an error.",
+        "on_screen_text": "View = container, Text = text",
+        "visual": {
+          "kind": "code",
+          "language": "tsx",
+          "code": "import { View, Text } from 'react-native';\n\nexport const Card = () => (\n  <View>\n    <Text>Hello</Text>\n  </View>\n);",
+          "highlight_lines": [5],
+          "check": "compiles"
+        }
+      }
+    ],
+    "key_claims": [
+      {
+        "id": "c1",
+        "text": "React Native core components render real native platform views, not HTML inside a web view.",
+        "source_id": "card-rn-core-components",
+        "quote": "render real native platform views, not HTML inside a web view"
+      },
+      {
+        "id": "c2",
+        "text": "On iOS a View becomes a UIView, and on Android it becomes an android.view.View.",
+        "source_id": "card-rn-core-components",
+        "quote": "On iOS a View becomes a UIView, and on Android it becomes an android.view.View"
+      },
+      {
+        "id": "c3",
+        "text": "React Native has no div, span, or p elements; View is the basic container and Text displays text.",
+        "source_id": "card-rn-core-components",
+        "quote": "React Native has no div, span or p elements. View is the basic container and Text displays text."
+      },
+      {
+        "id": "c4",
+        "text": "A bare string placed directly inside a View causes an error.",
+        "source_id": "card-rn-core-components",
+        "quote": "A bare string placed directly inside a View causes the error"
+      }
+    ],
+    "sources": [
+      {
+        "id": "card-rn-core-components",
+        "title": "Source card: Core components in React Native",
+        "ref": "content/software-engineering/sources/rn-core-components.md"
+      }
+    ],
+    "difficulty": 1,
+    "retrieval_items": [
+      {
+        "id": "rn-core-components--intro--q1",
+        "type": "mcq",
+        "prompt": "What do React Native core components like View and Text render to?",
+        "choices": [
+          "Real native platform views, not HTML",
+          "HTML elements inside a web view",
+          "Custom canvas drawings",
+          "SVG elements"
+        ],
+        "answer_index": 0,
+        "explanation": "React Native core components render real native platform views like UIView and android.view.View, not HTML inside a web view.",
+        "claim_ids": ["c1"]
+      },
+      {
+        "id": "rn-core-components--intro--q2",
+        "type": "mcq",
+        "prompt": "What happens if you put a bare text string directly inside a View?",
+        "choices": [
+          "It causes an error — text must be in a Text component",
+          "It renders as a paragraph automatically",
+          "It creates a div element",
+          "It is ignored silently"
+        ],
+        "answer_index": 0,
+        "explanation": "A bare string placed directly inside a View causes an error. Text strings must be rendered inside a Text component.",
+        "claim_ids": ["c4"]
+      }
+    ]
+  }
+}

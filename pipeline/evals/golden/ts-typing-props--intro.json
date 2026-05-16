@@ -1,0 +1,121 @@
+{
+  "reel_id": "ts-typing-props--intro",
+  "label_source": "Checked on 2026-10-05 against the source card (claims, answer keys, code). Not yet approved in the review report.",
+  "concept": {
+    "id": "ts-typing-props",
+    "title": "Typing props",
+    "summary": "Describing component props with types."
+  },
+  "topic": {
+    "id": "react-typescript",
+    "title": "React and TypeScript",
+    "summary": "Components, state and types."
+  },
+  "card": {
+    "ref": "content/software-engineering/sources/ts-typing-props.md",
+    "text": "# Typing props in TypeScript\n\n1. Describe a component's props with a type alias or interface, for example type Props = { title: string; count: number }.\n2. Mark optional props with a question mark, such as subtitle?: string, and give defaults in the destructuring, such as { size = 16 }.\n3. Type function props by their signature, for example onPress: () => void or onChange: (value: string) => void.\n4. Type children that can be anything React can render as React.ReactNode.\n5. React.ComponentProps<typeof Button> gives you the props of an existing component, so a wrapper can accept all of them and add its own.\n6. With typed props, a missing required prop or a prop of the wrong type is a compile-time error at the place the component is used.\n7. Many teams type props directly on the function parameter instead of using React.FC, which keeps children explicit."
+  },
+  "spec": {
+    "schema_version": 1,
+    "reel_id": "ts-typing-props--intro",
+    "concept_id": "ts-typing-props",
+    "lang": "en",
+    "angle": "intro",
+    "template": "visual-focus",
+    "target_duration_s": 30,
+    "hook": "Ever pass a prop and wonder what type it expects?",
+    "segments": [
+      {
+        "narration": "In TypeScript, describe a component's props with a type alias or interface. Each prop gets a type — title as string, count as number.",
+        "on_screen_text": "type Props = { title: string; count: number }",
+        "visual": {
+          "kind": "code",
+          "language": "tsx",
+          "code": "type Props = {\n  title: string;\n  count: number;\n};",
+          "highlight_lines": [1, 2, 3],
+          "check": "compiles"
+        }
+      },
+      {
+        "narration": "Mark optional props with a question mark, like subtitle optional string. Required props must be supplied.",
+        "on_screen_text": "subtitle?: string marks an optional prop",
+        "visual": {
+          "kind": "code",
+          "language": "tsx",
+          "code": "type Props = {\n  title: string;\n  subtitle?: string;\n};",
+          "highlight_lines": [3],
+          "check": "compiles"
+        }
+      },
+      {
+        "narration": "Now a missing required prop or a wrong type is a compile-time error, caught right where the component is used.",
+        "on_screen_text": "Wrong type = compile-time error",
+        "visual": {
+          "kind": "code",
+          "language": "tsx",
+          "code": "type Props = {\n  title: string;\n  count: number;\n};\nfunction Card(p: Props) { return null; }\n<Card title=\"Hi\" count=\"five\" />",
+          "highlight_lines": [6],
+          "check": "should_error"
+        }
+      }
+    ],
+    "key_claims": [
+      {
+        "id": "c1",
+        "text": "You describe a component's props with a type alias or interface, giving each prop a type.",
+        "source_id": "card-ts-typing-props",
+        "quote": "Describe a component's props with a type alias or interface, for example type Props = { title: string; count: number }."
+      },
+      {
+        "id": "c2",
+        "text": "Optional props are marked with a question mark after the prop name.",
+        "source_id": "card-ts-typing-props",
+        "quote": "Mark optional props with a question mark, such as subtitle?: string, and give defaults in the destructuring, such as { size = 16 }."
+      },
+      {
+        "id": "c3",
+        "text": "A missing required prop or a prop of the wrong type becomes a compile-time error at the place the component is used.",
+        "source_id": "card-ts-typing-props",
+        "quote": "With typed props, a missing required prop or a prop of the wrong type is a compile-time error at the place the component is used."
+      }
+    ],
+    "sources": [
+      {
+        "id": "card-ts-typing-props",
+        "title": "Source card: Typing props in TypeScript",
+        "ref": "content/software-engineering/sources/ts-typing-props.md"
+      }
+    ],
+    "difficulty": 1,
+    "retrieval_items": [
+      {
+        "id": "ts-typing-props--intro--q1",
+        "type": "mcq",
+        "prompt": "What happens when you pass a prop of the wrong type to a component with typed props?",
+        "choices": [
+          "TypeScript flags it as a compile-time error where the component is used",
+          "The prop is silently converted to the expected type",
+          "A warning is logged to the console at runtime",
+          "The component ignores that prop entirely"
+        ],
+        "answer_index": 0,
+        "explanation": "Typed props make a wrong-type prop a compile-time error at the call site, not a runtime issue.",
+        "claim_ids": ["c3"]
+      },
+      {
+        "id": "ts-typing-props--intro--q2",
+        "type": "mcq",
+        "prompt": "How do you mark a prop as optional in a props type?",
+        "choices": [
+          "Add a question mark after the prop name, like subtitle?: string",
+          "Use the optional keyword before the prop name",
+          "Wrap the prop type in angle brackets",
+          "Prefix the prop name with an underscore"
+        ],
+        "answer_index": 0,
+        "explanation": "Optional props are marked with a question mark after the prop name in the type definition.",
+        "claim_ids": ["c2"]
+      }
+    ]
+  }
+}

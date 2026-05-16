@@ -1,0 +1,118 @@
+{
+  "reel_id": "rn-flexbox-layout--example",
+  "label_source": "Checked on 2026-10-05 against the source card (claims, answer keys, code). Not yet approved in the review report.",
+  "concept": {
+    "id": "rn-flexbox-layout",
+    "title": "Flexbox layout",
+    "summary": "How React Native lays out screens with Flexbox."
+  },
+  "topic": {
+    "id": "react-native",
+    "title": "React Native",
+    "summary": "Building native mobile apps with React."
+  },
+  "card": {
+    "ref": "content/software-engineering/sources/rn-flexbox-layout.md",
+    "text": "# Flexbox layout in React Native\n\n1. React Native lays out views with Flexbox, using a layout engine called Yoga.\n2. flexDirection defaults to column in React Native, so children stack top to bottom, while on the web it defaults to row.\n3. justifyContent aligns children along the main axis, and alignItems aligns them along the cross axis.\n4. alignItems defaults to stretch, so children fill the cross axis unless they have a fixed size.\n5. flex: 1 makes a view expand to fill the space available along its parent's main axis; siblings with flex 1 and flex 2 share space in a one to two ratio.\n6. In React Native flexShrink defaults to 0, while on the web it defaults to 1.\n7. gap, rowGap and columnGap add space between children without margins on each child.\n8. position: 'absolute' places a view relative to its parent, taking it out of the normal flex flow."
+  },
+  "spec": {
+    "schema_version": 1,
+    "reel_id": "rn-flexbox-layout--example",
+    "concept_id": "rn-flexbox-layout",
+    "lang": "en",
+    "angle": "example",
+    "template": "visual-focus",
+    "target_duration_s": 30,
+    "hook": "Need a header, content, and footer filling the screen? Flexbox makes it simple.",
+    "segments": [
+      {
+        "narration": "React Native lays out views with Flexbox, using a layout engine called Yoga. flexDirection defaults to column, so children stack top to bottom.",
+        "on_screen_text": "flexDirection defaults to column",
+        "visual": {
+          "kind": "code",
+          "language": "tsx",
+          "code": "import {View, Text} from 'react-native';\n\nexport default function Screen() {\n  return (\n    <View style={{flex: 1}}>\n      <Text>Header</Text>\n      <View style={{flex: 1}} />\n      <Text>Footer</Text>\n    </View>\n  );\n}",
+          "highlight_lines": [5],
+          "check": "compiles"
+        }
+      },
+      {
+        "narration": "Give the content view flex one to expand and fill the space along the parent's main axis.",
+        "on_screen_text": "flex: 1 fills remaining space",
+        "visual": {
+          "kind": "code",
+          "language": "tsx",
+          "code": "import {View, Text} from 'react-native';\n\nexport default function Screen() {\n  return (\n    <View style={{flex: 1}}>\n      <Text>Header</Text>\n      <View style={{flex: 1}} />\n      <Text>Footer</Text>\n    </View>\n  );\n}",
+          "highlight_lines": [7],
+          "check": "compiles"
+        }
+      },
+      {
+        "narration": "Siblings with flex one and flex two share space in a one to two ratio. That's your full-screen layout.",
+        "on_screen_text": "flex 1 : flex 2 → 1:2 ratio",
+        "visual": {
+          "kind": "kinetic_text"
+        }
+      }
+    ],
+    "key_claims": [
+      {
+        "id": "c1",
+        "text": "React Native uses Flexbox via the Yoga layout engine",
+        "source_id": "card-rn-flexbox-layout",
+        "quote": "React Native lays out views with Flexbox, using a layout engine called Yoga."
+      },
+      {
+        "id": "c2",
+        "text": "flexDirection defaults to column in React Native, stacking children top to bottom",
+        "source_id": "card-rn-flexbox-layout",
+        "quote": "flexDirection defaults to column in React Native, so children stack top to bottom, while on the web it defaults to row."
+      },
+      {
+        "id": "c3",
+        "text": "flex: 1 makes a view expand to fill available space along its parent's main axis",
+        "source_id": "card-rn-flexbox-layout",
+        "quote": "flex: 1 makes a view expand to fill the space available along its parent's main axis"
+      },
+      {
+        "id": "c4",
+        "text": "Siblings with flex 1 and flex 2 share space in a 1:2 ratio",
+        "source_id": "card-rn-flexbox-layout",
+        "quote": "siblings with flex 1 and flex 2 share space in a one to two ratio"
+      }
+    ],
+    "sources": [
+      {
+        "id": "card-rn-flexbox-layout",
+        "title": "Source card: Flexbox layout in React Native",
+        "ref": "content/software-engineering/sources/rn-flexbox-layout.md"
+      }
+    ],
+    "difficulty": 2,
+    "retrieval_items": [
+      {
+        "id": "rn-flexbox-layout--example--q1",
+        "type": "mcq",
+        "prompt": "In React Native, what is the default value of flexDirection?",
+        "choices": ["column", "row", "stretch", "flex-start"],
+        "answer_index": 0,
+        "explanation": "React Native defaults flexDirection to column, so children stack top to bottom. On the web it defaults to row.",
+        "claim_ids": ["c2"]
+      },
+      {
+        "id": "rn-flexbox-layout--example--q2",
+        "type": "mcq",
+        "prompt": "Two sibling views have flex: 1 and flex: 2. How do they share space?",
+        "choices": [
+          "Equally",
+          "In a 1:2 ratio",
+          "The first view gets all the space",
+          "In a 2:1 ratio"
+        ],
+        "answer_index": 1,
+        "explanation": "Siblings with flex 1 and flex 2 share space in a one to two ratio, so the second view gets twice as much as the first.",
+        "claim_ids": ["c4"]
+      }
+    ]
+  }
+}

@@ -14,7 +14,10 @@ import { CostLedger } from './ledger';
 import { deepInfraProviders } from './providers/deepinfra';
 import { run, STAGES, type Stage } from './run';
 
-const STAGE_HELP: Record<Stage | 'all' | 'canary' | 'approve' | 'setup' | 'serve', string> = {
+const STAGE_HELP: Record<
+  Stage | 'all' | 'canary' | 'eval' | 'approve' | 'setup' | 'serve',
+  string
+> = {
   setup: 'One-time: download the headless Chrome Remotion renders with (~95 MB)',
   generate: 'Writer drafts a spec per reel, then gates G1-G4 (one rewrite on failure)',
   review: 'Re-run gates G1-G4 on existing specs, no rewrite',
@@ -26,6 +29,7 @@ const STAGE_HELP: Record<Stage | 'all' | 'canary' | 'approve' | 'setup' | 'serve
   report: 'Rebuild manifest.json, manifest.all.json and report.html from what exists',
   all: 'generate, tts, images, layout, render, gate, report',
   canary: 'Check G2 rejects a planted false claim (2 reviewer calls)',
+  eval: 'Score the reviewer on the golden set and planted defects (about $0.25; see docs/EVALS.md)',
   serve: 'Serve the report on your network; approve/reject saves to library/decisions.json',
   approve: 'Rebuild manifest.json from your approved reels and summarise decisions',
 };
@@ -43,7 +47,8 @@ Options:
   --only <ids>     Comma-separated reel or concept ids
   --budget <usd>   Stop before spend would exceed this (default: BUDGET_CAP_USD or ${DEFAULT_BUDGET_CAP_USD})
   --force          Redo stages that already have output
-  --concurrency <n> Reels processed in parallel (default 4; rendering is always 1)
+  --concurrency <n> Reels processed in parallel (default 4; rendering is always 1; eval: cases, default 6)
+  --replay <file>  eval only: re-score a recorded run offline (fails if a prompt changed since)
   --render-concurrency <n> Frames Remotion renders in parallel per reel (default: Remotion's)
   -h, --help       Show this help
 `;
@@ -61,6 +66,7 @@ const { values, positionals } = parseArgs({
     force: { type: 'boolean', default: false },
     concurrency: { type: 'string' },
     'render-concurrency': { type: 'string' },
+    replay: { type: 'string' },
     help: { type: 'boolean', short: 'h', default: false },
   },
 });
@@ -141,6 +147,17 @@ async function main(): Promise<number> {
     );
     process.stdout.write(`cost $${ledger.spentUsd.toFixed(4)}\n`);
     return control.pass && !planted.pass ? 0 : 1;
+  }
+
+  if (command === 'eval') {
+    const { evalCommand } = await import('./eval/command');
+    return evalCommand({
+      dryRun: values['dry-run'],
+      replay: values.replay,
+      only: values.only?.split(',').map((s) => s.trim()),
+      budgetUsd,
+      concurrency: values.concurrency === undefined ? undefined : Number(values.concurrency),
+    });
   }
 
   const stages: Stage[] =

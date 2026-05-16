@@ -1,0 +1,113 @@
+{
+  "reel_id": "time-complexity--example",
+  "label_source": "Checked on 2026-10-05 against the source card (claims, answer keys, code). Not yet approved in the review report.",
+  "concept": {
+    "id": "time-complexity",
+    "title": "Time complexity",
+    "summary": "How work grows with input size."
+  },
+  "topic": {
+    "id": "problem-solving",
+    "title": "Problem solving",
+    "summary": "How engineers find and fix problems."
+  },
+  "card": {
+    "ref": "content/software-engineering/sources/time-complexity.md",
+    "text": "# Time complexity\n\n1. Time complexity describes how the work an algorithm does grows as its input grows, written in Big-O notation.\n2. Common classes from fastest to slowest growth are O(1), O(log n), O(n), O(n log n) and O(n squared).\n3. Two nested loops over the same n items do about n squared steps; for a million items that is a trillion steps.\n4. Checking array.includes inside a loop over another array is O(n squared); putting the values in a Set first makes each lookup O(1) on average, so the whole thing is O(n).\n5. Binary search on a sorted array is O(log n): it halves the remaining range on every step.\n6. Big-O ignores constant factors, so for small inputs a simpler O(n squared) solution can be perfectly fine."
+  },
+  "spec": {
+    "schema_version": 1,
+    "reel_id": "time-complexity--example",
+    "concept_id": "time-complexity",
+    "lang": "en",
+    "angle": "example",
+    "template": "visual-focus",
+    "target_duration_s": 30,
+    "hook": "Your nested array lookup is secretly doing a trillion steps.",
+    "segments": [
+      {
+        "narration": "Calling array includes inside a loop over another array is order n squared. Two nested loops over the same n items do about n squared steps.",
+        "on_screen_text": "array.includes in a loop = O(n²)",
+        "visual": {
+          "kind": "code",
+          "language": "ts",
+          "code": "function find(a: number[], b: number[]) {\n  return a.filter(x => b.includes(x));\n}",
+          "highlight_lines": [2],
+          "check": "compiles"
+        }
+      },
+      {
+        "narration": "Put the values in a Set first. Each lookup becomes order one on average, so the whole thing drops to order n.",
+        "on_screen_text": "Set.has = O(1) → overall O(n)",
+        "visual": {
+          "kind": "code",
+          "language": "ts",
+          "code": "function find(a: number[], b: number[]) {\n  const s = new Set(b);\n  return a.filter(x => s.has(x));\n}",
+          "highlight_lines": [2, 3],
+          "check": "compiles"
+        }
+      },
+      {
+        "narration": "For a million items, that is a trillion steps down to just a million. Same result, far less work.",
+        "on_screen_text": "n=1M: n²=1T vs n=1M",
+        "visual": {
+          "kind": "equation",
+          "latex": "O(n^2) \\to O(n)"
+        }
+      }
+    ],
+    "key_claims": [
+      {
+        "id": "c1",
+        "text": "Checking array.includes inside a loop over another array is O(n squared).",
+        "source_id": "card-time-complexity",
+        "quote": "Checking array.includes inside a loop over another array is O(n squared)"
+      },
+      {
+        "id": "c2",
+        "text": "Putting the values in a Set first makes each lookup O(1) on average, so the whole thing is O(n).",
+        "source_id": "card-time-complexity",
+        "quote": "putting the values in a Set first makes each lookup O(1) on average, so the whole thing is O(n)"
+      },
+      {
+        "id": "c3",
+        "text": "Two nested loops over the same n items do about n squared steps; for a million items that is a trillion steps.",
+        "source_id": "card-time-complexity",
+        "quote": "Two nested loops over the same n items do about n squared steps; for a million items that is a trillion steps"
+      }
+    ],
+    "sources": [
+      {
+        "id": "card-time-complexity",
+        "title": "Source card: Time complexity",
+        "ref": "content/software-engineering/sources/time-complexity.md"
+      }
+    ],
+    "difficulty": 2,
+    "retrieval_items": [
+      {
+        "id": "time-complexity--example--q1",
+        "type": "mcq",
+        "prompt": "Using array.includes inside a loop over another array gives what time complexity?",
+        "choices": ["O(1)", "O(n)", "O(n squared)", "O(log n)"],
+        "answer_index": 2,
+        "explanation": "Each includes call scans the second array, creating nested loops — O(n squared).",
+        "claim_ids": ["c1", "c3"]
+      },
+      {
+        "id": "time-complexity--example--q2",
+        "type": "mcq",
+        "prompt": "What change makes the whole lookup O(n) instead of O(n squared)?",
+        "choices": [
+          "Sort the second array first",
+          "Put the second array's values in a Set first",
+          "Use a for loop instead of filter",
+          "Break the loop after the first match"
+        ],
+        "answer_index": 1,
+        "explanation": "A Set makes each lookup O(1) on average, so the whole thing becomes O(n).",
+        "claim_ids": ["c2"]
+      }
+    ]
+  }
+}
