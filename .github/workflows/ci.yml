@@ -1,0 +1,62 @@
+# Checks every push and pull request. No secrets are configured, so nothing here
+# can call a paid model: the pipeline runs on fake providers with the network
+# blocked, and the reviewer eval is re-scored from its committed recording.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  EXPO_NO_TELEMETRY: 1
+
+jobs:
+  check:
+    name: Typecheck, lint, test
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - name: Install ffmpeg (the encode gate tests probe real media files)
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends ffmpeg
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm run format:check
+      - name: Tests (agent, schemas, pipeline, and a replay of the recorded reviewer eval)
+        run: npm test
+      - name: Pipeline dry run (fake models, network blocked)
+        run: npm run pipeline -- generate --dry-run --limit 5
+      - name: Reviewer eval harness (fake reviewer, offline)
+        run: npm run eval -- --dry-run
+
+  app:
+    name: Bundle the app
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - name: Export the iOS and Android bundles (Metro resolves the workspace packages)
+        working-directory: apps/mobile
+        run: npx expo export --platform ios --platform android --output-dir "$RUNNER_TEMP/export"
